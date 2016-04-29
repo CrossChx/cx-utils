@@ -1,2 +1,2 @@
-# cx-redux-utils
-A simple library for reducing boilerplate in redux applications
+# cx-general-utils
+A collection of handy javascript utilities built on ramda
