@@ -27,7 +27,7 @@ import {
   isNilOrEmpty,
   renameKeys,
   secondArgument,
-} from './general-utils';
+} from '../src/index';
 
 describe('General Utils', () => {
   describe('#emptyString', () => {
