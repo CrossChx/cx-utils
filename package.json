@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "license": "ISC",
   "description": "A collection of handy javascript utilities built on ramda",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git"
   },
