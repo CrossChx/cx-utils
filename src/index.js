@@ -4,6 +4,7 @@ import {
   compose,
   curry,
   filter,
+  find,
   identity,
   isEmpty,
   isNil,
@@ -109,6 +110,16 @@ const applyByProp = curry(
  * @return {Function}
  */
 export const filterByProp = applyByProp(filter);
+
+/**
+ * Curryable function to filter a list of objects according to the value of
+ * a specified property
+ *
+ * @param  {String} `key` key to match with the specified value
+ * @param  {String} `val` value to match on the specified key
+ * @return {Function}
+ */
+export const findByProp = applyByProp(find);
 
 /**
  * Curryable function to drop items from a list of objects according to the

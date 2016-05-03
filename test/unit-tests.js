@@ -19,6 +19,7 @@ import {
   emptyObject,
   emptyString,
   filterByProp,
+  findByProp,
   firstArgument,
   getPropOrEmptyObjectFunction,
   getPropOrEmptyString,
@@ -302,21 +303,20 @@ describe('General Utils', () => {
   });
 
   describe('#filterByProp', () => {
+    const target = 'i am the one you seek';
+    const testArr = [
+      { test: 1 },
+      { test: 2 },
+      { test: 3 },
+      { test: target },
+    ];
     describe('when passed a key and value argument and partially applied', () => {
-      const target = 'i am the one you seek';
       const testFilter = filterByProp('test', target);
 
       testIfExists(testFilter);
       shouldBeAFunction(testFilter);
 
       describe('when the resulting function is passed a list of objects with a "test" key', () => {
-        const testArr = [
-          { test: 1 },
-          { test: 2 },
-          { test: 3 },
-          { test: target },
-        ];
-
         const result = testFilter(testArr);
 
         testIfExists(result);
@@ -337,14 +337,6 @@ describe('General Utils', () => {
     });
 
     describe('when passed a key, value, and data array and fully applied', () => {
-      const target = 'i am the one you seek';
-      const testArr = [
-        { test: 1 },
-        { test: 2 },
-        { test: 3 },
-        { test: target },
-      ];
-
       const result = filterByProp('test', target, testArr);
 
       testIfExists(result);
@@ -361,6 +353,51 @@ describe('General Utils', () => {
       it('should equal the expected element of the provided object array', () => {
         expect(result[0]).to.deep.equal(testArr[3]);
       });
+    });
+  });
+
+  describe('#findByProp', () => {
+    const target = 'i am the one you seek';
+    const testArr = [
+      { test: 1 },
+      { test: 2 },
+      { test: 3 },
+      { test: target },
+      { test: target, notMe: 1 },
+      { test: target, notMe: 2 },
+      { test: target, notMe: 3 },
+    ];
+
+    const findByPropResultTest = res => {
+      testIfExists(res);
+      shouldBeAnObject(res);
+
+      it('should equal the expected element of the provided object array', () => {
+        expect(res).to.deep.equal(testArr[3]);
+      });
+
+      it('should not have a `notMe` key', () => {
+        expect(res).to.not.have.all.keys(['notMe']);
+      });
+    };
+
+    describe('when passed a key and value argument and partially applied', () => {
+      const testFinder = findByProp('test', target);
+
+      testIfExists(testFinder);
+      shouldBeAFunction(testFinder);
+
+      describe('when the resulting function is passed a list of objects with a "test" key', () => {
+        const result = testFinder(testArr);
+
+        findByPropResultTest(result);
+      });
+    });
+
+    describe('when passed a key, value, and data array and fully applied', () => {
+      const result = findByProp('test', target, testArr);
+
+      findByPropResultTest(result);
     });
   });
 
