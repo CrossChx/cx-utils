@@ -311,28 +311,60 @@ describe('General Utils', () => {
       { test: 3 },
       { test: target },
     ];
+    const deepTestArr = [
+      { test: 1 },
+      { test: 2 },
+      { test: 3 },
+      { test: target, otherKey: { nestedKey: { deepNestedKey: target } } },
+    ];
+
     describe('when passed a key and value argument and partially applied', () => {
       const testFilter = filterByProp('test', target);
 
       testIfExists(testFilter);
       shouldBeAFunction(testFilter);
 
-      describe('when the resulting function is passed a list of objects with a "test" key', () => {
-        const result = testFilter(testArr);
+      describe('when the resulting function is passed', () => {
+        describe('a list of objects with "test" keys', () => {
+          const result = testFilter(testArr);
 
-        testIfExists(result);
-        shouldBeAnArray(result);
+          testIfExists(result);
+          shouldBeAnArray(result);
 
-        it('should have one element', () => {
-          expect(result).to.have.lengthOf(1);
+          it('should have one element', () => {
+            expect(result).to.have.lengthOf(1);
+          });
+
+          it('first element should be an object', () => {
+            expect(result[0]).to.be.an('object');
+          });
+
+          it('should equal the expected element of the provided object array', () => {
+            expect(result[0]).to.deep.equal(testArr[3]);
+          });
         });
 
-        it('first element should be an object', () => {
-          expect(result[0]).to.be.an('object');
-        });
+        describe('a list of objects that contain deep objects with a "test" keys', () => {
+          const result = testFilter(deepTestArr);
 
-        it('should equal the expected element of the provided object array', () => {
-          expect(result[0]).to.deep.equal(testArr[3]);
+          testIfExists(result);
+          shouldBeAnArray(result);
+
+          it('should have one element', () => {
+            expect(result).to.have.lengthOf(1);
+          });
+
+          it('first element should be an object', () => {
+            expect(result[0]).to.be.an('object');
+          });
+
+          it('should retain the deepest key', () => {
+            expect(result[0].otherKey.nestedKey.deepNestedKey).to.deep.equal(target);
+          });
+
+          it('should equal the expected element of the provided object array', () => {
+            expect(result[0]).to.deep.equal(deepTestArr[3]);
+          });
         });
       });
     });
