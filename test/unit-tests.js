@@ -9,6 +9,7 @@ import {
   shouldBeEmpty,
   shouldNotBeNull,
   shouldNotBeUndefined,
+  shouldNotThrow,
   testIfExists,
   testSet,
 } from 'how-the-test-was-won';
@@ -354,6 +355,12 @@ describe('General Utils', () => {
         expect(result[0]).to.deep.equal(testArr[3]);
       });
     });
+
+    describe('when passed a key, value, and undefined data arg', () => {
+      const filter = filterByProp('test', target);
+
+      shouldNotThrow(filter, undefined);
+    });
   });
 
   describe('#findByProp', () => {
@@ -398,6 +405,12 @@ describe('General Utils', () => {
       const result = findByProp('test', target, testArr);
 
       findByPropResultTest(result);
+    });
+
+    describe('when passed a key, value, and undefined data arg', () => {
+      const finder = findByProp('test', target);
+
+      shouldNotThrow(finder, undefined);
     });
   });
 

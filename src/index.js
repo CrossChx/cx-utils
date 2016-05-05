@@ -3,6 +3,7 @@ import {
   anyPass,
   compose,
   curry,
+  defaultTo,
   filter,
   find,
   identity,
@@ -29,6 +30,12 @@ import {
 export const emptyString = always('');
 export const emptyObject = always({});
 export const emptyArray = always([]);
+
+/**
+ * return functions that provide type safety by returning default values if the
+ * arguments passed to them are undefined or null
+ */
+export const defaultToEmptyArray = defaultTo([]);
 
 /**
  * return functions that return either their first argument or the specified default
@@ -98,7 +105,8 @@ export const pickDeep = memoize(curry(
  * @return {Function}
  */
 const applyByProp = curry(
-  (func, key, val, data) => func(propEq(key, val), data),
+  (func, key, val, data) =>
+    func(propEq(key, val), defaultToEmptyArray(data)),
 );
 
 /**
