@@ -36,6 +36,7 @@ export const emptyArray = always([]);
  * arguments passed to them are undefined or null
  */
 export const defaultToEmptyArray = defaultTo([]);
+export const defaultToEmptyString = defaultTo('');
 
 /**
  * return functions that return either their first argument or the specified default
