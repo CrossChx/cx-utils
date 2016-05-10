@@ -4,9 +4,11 @@ import {
   compose,
   curry,
   defaultTo,
+  equals,
   filter,
   find,
   identity,
+  ifElse,
   isEmpty,
   isNil,
   keys,
@@ -22,11 +24,15 @@ import {
   propOr,
   reduce,
   reject,
+  replace,
+  toString,
+  type,
 } from 'ramda';
 
 /**
  * return functions that always return their given values
  */
+export const typeIs = typeName => compose(equals(typeName), type);
 export const emptyString = always('');
 export const emptyObject = always({});
 export const emptyArray = always([]);
@@ -163,6 +169,15 @@ export const renameKeys = curry(
   }, {}, keys(obj))
 );
 
+const insertCommaEveryThree = replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const convertToString = ifElse(typeIs('String'), identity, toString);
+
+export const insertCommasInNumber = compose(
+  insertCommaEveryThree,
+  convertToString,
+);
+
+
 export default {
   dropById,
   dropByProp,
@@ -174,6 +189,7 @@ export default {
   getPropOrEmptyObjectFunction,
   getPropOrEmptyString,
   hasDeep,
+  insertCommasInNumber,
   isNilOrEmpty,
   renameKeys,
   secondArgument,

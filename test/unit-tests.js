@@ -10,8 +10,8 @@ import {
   shouldNotBeNull,
   shouldNotBeUndefined,
   shouldNotThrow,
-  testIfExists,
   testCases,
+  testIfExists,
 } from 'how-the-test-was-won';
 
 import {
@@ -25,8 +25,9 @@ import {
   getPropOrEmptyObjectFunction,
   getPropOrEmptyString,
   hasDeep,
-  pickDeep,
+  insertCommasInNumber,
   isNilOrEmpty,
+  pickDeep,
   renameKeys,
   secondArgument,
 } from '../src/index';
@@ -501,5 +502,64 @@ describe('General Utils', () => {
     it('should remove the mapped key', () => {
       expect(result).to.not.contain.keys(['three']);
     });
+  });
+
+  describe('#insertCommasInNumber', () => {
+    describe('when passed a two digit value of Number type', () => {
+      const result = insertCommasInNumber(20);
+
+      testIfExists(result);
+      shouldBeAString(result);
+
+      it('should return a string representation of the number with no commas', () => {
+        expect(result).to.equal('20');
+      });
+    });
+
+    describe('when passed a two digit value of String type', () => {
+      const result = insertCommasInNumber('20');
+
+      testIfExists(result);
+      shouldBeAString(result);
+
+      it('should directly return its argument', () => {
+        expect(result).to.equal('20');
+      });
+    });
+
+    describe('when passed a four digit value of Number type', () => {
+      const result = insertCommasInNumber(2000);
+
+      testIfExists(result);
+      shouldBeAString(result);
+
+      it('should return a string representation of the number with one comma', () => {
+        expect(result).to.equal('2,000');
+      });
+    });
+
+    describe('when passed a four digit value of String type', () => {
+      const result = insertCommasInNumber('2000');
+
+      testIfExists(result);
+      shouldBeAString(result);
+
+      it('should insert one comma after the first digit', () => {
+        expect(result).to.equal('2,000');
+      });
+    });
+
+    testCases(insertCommasInNumber,
+      ['when passed the number 200', 200, '200'],
+      ['when passed the number 20000', 20000, '20,000'],
+      ['when passed the number 200000', 200000, '200,000'],
+      ['when passed the number 2000000', 2000000, '2,000,000'],
+      ['when passed the number 2000000000', 2000000000, '2,000,000,000'],
+      ['when passed the string 200', '200', '200'],
+      ['when passed the string 20000', '20000', '20,000'],
+      ['when passed the string 200000', '200000', '200,000'],
+      ['when passed the string 2000000', '2000000', '2,000,000'],
+      ['when passed the string 2000000000', '2000000000', '2,000,000,000'],
+    );
   });
 });
