@@ -130,6 +130,10 @@ export const filterByProp = applyByProp(filter);
  */
 export const findByProp = applyByProp(find);
 
+// lookups for common property names
+export const findById = findByProp('id');
+export const findByName = findByProp('name');
+
 /**
  * Curryable function to drop items from a list of objects according to the
  * value of a specified property
@@ -142,6 +146,7 @@ export const dropByProp = applyByProp(reject);
 
 // rejectors for common property names
 export const dropById = dropByProp('id');
+export const dropByName = dropByProp('name');
 
 /**
  * Creates a new object with the own properties of the provided object, but the

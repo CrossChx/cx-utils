@@ -11,7 +11,7 @@ import {
   shouldNotBeUndefined,
   shouldNotThrow,
   testIfExists,
-  testSet,
+  testCases,
 } from 'how-the-test-was-won';
 
 import {
@@ -158,7 +158,7 @@ describe('General Utils', () => {
   });
 
   describe('#isNilOrEmpty', () => {
-    const set = [
+    testCases(isNilOrEmpty,
       ['given a null value', null, true],
       ['given a undefined value', undefined, true],
       ['given an empty string', '', true],
@@ -168,9 +168,7 @@ describe('General Utils', () => {
       ['given a non empty array', ['test'], false],
       ['given a non empty object', { test: 'test' }, false],
       ['given a NaN value', NaN, false],
-    ];
-
-    set.forEach(test => testSet(test, isNilOrEmpty));
+    );
   });
 
   describe('#hasDeep', () => {
