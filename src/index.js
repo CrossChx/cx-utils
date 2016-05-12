@@ -137,8 +137,8 @@ export const filterByProp = applyByProp(filter);
 export const findByProp = applyByProp(find);
 
 // lookups for common property names
-export const findById = findByProp('id');
-export const findByName = findByProp('name');
+export const findById = memoize(findByProp('id'));
+export const findByName = memoize(findByProp('name'));
 
 /**
  * Curryable function to drop items from a list of objects according to the
@@ -151,8 +151,8 @@ export const findByName = findByProp('name');
 export const dropByProp = applyByProp(reject);
 
 // rejectors for common property names
-export const dropById = dropByProp('id');
-export const dropByName = dropByProp('name');
+export const dropById = memoize(dropByProp('id'));
+export const dropByName = memoize(dropByProp('name'));
 
 /**
  * Creates a new object with the own properties of the provided object, but the
