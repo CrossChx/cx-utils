@@ -7,6 +7,7 @@ import {
   shouldBeANumber,
   shouldBeAString,
   shouldBeEmpty,
+  shouldHaveKeys,
   shouldNotBeNull,
   shouldNotBeUndefined,
   shouldNotThrow,
@@ -15,11 +16,13 @@ import {
 } from 'how-the-test-was-won';
 
 import {
+  dropById,
   dropByProp,
   emptyArray,
   emptyObject,
   emptyString,
   filterByProp,
+  findById,
   findByProp,
   firstArgument,
   getPropOrEmptyObjectFunction,
@@ -442,6 +445,49 @@ describe('General Utils', () => {
       const finder = findByProp('test', target);
 
       shouldNotThrow(finder, undefined);
+    });
+  });
+
+  describe('#findById', () => {
+    const testArr = [
+      { id: 1 },
+      { id: 2 },
+      { id: 3 },
+      { id: 4 },
+      { id: 5 },
+      { id: 6, target: 'i am the one you seek' },
+    ];
+
+    const result = findById(6, testArr);
+
+    testIfExists(result);
+    shouldBeAnObject(result);
+    shouldHaveKeys(result, 'id', 'target');
+
+    it('should return the correct array element', () => {
+      expect(result).to.deep.equal(testArr[5]);
+    });
+  });
+
+  describe('#dropById', () => {
+    const common = [
+      { id: 1 },
+      { id: 2 },
+      { id: 3 },
+      { id: 4 },
+      { id: 5 },
+    ];
+    const testArr = [...common, { id: 6, target: 'i am the one you seek' }];
+    const result = dropById(6, testArr);
+
+    testIfExists(result);
+    shouldBeAnArray(result);
+    it('should return an array with 5 elements', () => {
+      expect(result).to.have.length(5);
+    });
+
+    it('should drop the last element in test array', () => {
+      expect(result).to.deep.equal(common);
     });
   });
 
