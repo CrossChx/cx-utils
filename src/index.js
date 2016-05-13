@@ -42,6 +42,7 @@ export const emptyArray = always([]);
  * arguments passed to them are undefined or null
  */
 export const defaultToEmptyArray = defaultTo([]);
+export const defaultToEmptyObject = defaultTo({});
 export const defaultToEmptyString = defaultTo('');
 
 /**
@@ -181,8 +182,20 @@ export const insertCommasInNumber = compose(
   convertToString,
 );
 
+/**
+ * Simple logger for debugging function composition without breaking data flow
+ *
+ * @param {*}
+ * @return {undefined}
+ */
+export const check = (val, pause = false) => {
+  if (pause) debugger;
+  else console.log(val);
+  return val;
+};
 
 export default {
+  check,
   dropById,
   dropByProp,
   emptyArray,
