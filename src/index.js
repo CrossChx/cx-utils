@@ -126,6 +126,10 @@ const applyByProp = curry(
  */
 export const filterByProp = applyByProp(filter);
 
+// filters for common property names
+export const filterById = memoize(filterByProp('id'));
+export const filterByName = memoize(filterByProp('name'));
+
 /**
  * Curryable function to filter a list of objects according to the value of
  * a specified property
