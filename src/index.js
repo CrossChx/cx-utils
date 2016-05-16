@@ -224,6 +224,7 @@ export default {
   hasDeep,
   insertCommasInNumber,
   isNilOrEmpty,
+  mergeListsByProp,
   renameKeys,
   secondArgument,
 };
