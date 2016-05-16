@@ -559,6 +559,7 @@ describe('General Utils', () => {
     const result = mergeListsByProp('id', sourceArr, searchArr);
 
     testIfExists(result);
+    shouldBeAnArray(result);
 
     it('should return the correct merged result', () => {
       expect(result).to.deep.equal(expected);
