@@ -30,6 +30,7 @@ import {
   hasDeep,
   insertCommasInNumber,
   isNilOrEmpty,
+  mergeListsByProp,
   pickDeep,
   renameKeys,
   secondArgument,
@@ -529,6 +530,38 @@ describe('General Utils', () => {
           expect(result).to.deep.equal(expected);
         });
       });
+    });
+  });
+
+  describe('#mergeListsByProp', () => {
+    const sourceArr = [
+      { id: 1, sourceKey: true },
+      { id: 3, sourceKey: true },
+      { id: 5, sourceKey: true },
+      { id: 6, sourceKey: true },
+    ];
+
+    const searchArr = [
+      { id: 1, searchKey: { nested: true }, firstName: 'Bob', lastName: 'Franklin' },
+      { id: 2, searchKey: true, firstName: 'Rob', lastName: 'Lob' },
+      { id: 3, searchKey: true, firstName: 'Tob', lastName: 'Lob' },
+      { id: 4, searchKey: true, firstName: 'Eob', lastName: 'Lob' },
+      { id: 5, searchKey: true, firstName: 'Wob', lastName: 'Lob' },
+    ];
+
+    const expected = [
+      { ...sourceArr[0], ...searchArr[0] },
+      { ...sourceArr[1], ...searchArr[2] },
+      { ...sourceArr[2], ...searchArr[4] },
+      { ...sourceArr[3] },
+    ];
+
+    const result = mergeListsByProp('id', sourceArr, searchArr);
+
+    testIfExists(result);
+
+    it('should return the correct merged result', () => {
+      expect(result).to.deep.equal(expected);
     });
   });
 

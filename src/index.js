@@ -13,6 +13,8 @@ import {
   isNil,
   keys,
   last,
+  map,
+  merge,
   memoize,
   not,
   nthArg,
@@ -20,6 +22,7 @@ import {
   path as rPath,
   pathOr,
   pick,
+  pluck,
   propEq,
   propOr,
   reduce,
@@ -28,6 +31,8 @@ import {
   toString,
   type,
 } from 'ramda';
+
+export const memoAndCurry = compose(memoize, curry);
 
 /**
  * return functions that always return their given values
@@ -159,6 +164,18 @@ export const dropByProp = applyByProp(reject);
 export const dropById = memoize(dropByProp('id'));
 export const dropByName = memoize(dropByProp('name'));
 
+const mergeListsByPropRaw = (prop, source, search) => {
+  const buildPredicate = compose(anyPass, map(propEq(prop)), pluck(prop));
+  const predicate = buildPredicate(source);
+  const matches = filter(predicate, search);
+  const mergeWithMatch = x => merge(x, findByProp(prop, x[prop], matches));
+  const mergeElement = ifElse(predicate, mergeWithMatch, always(undefined));
+
+  return map(mergeElement, source);
+};
+
+export const mergeListsByProp = memoAndCurry(mergeListsByPropRaw);
+
 /**
  * Creates a new object with the own properties of the provided object, but the
  * keys renamed according to the keysMap object as `{oldKey: newKey}`.
@@ -188,9 +205,8 @@ export const insertCommasInNumber = compose(
  * @param {*}
  * @return {undefined}
  */
-export const check = (val, pause = false) => {
-  if (pause) debugger;
-  else console.log(val);
+export const check = val => {
+  console.log(val);
   return val;
 };
 
