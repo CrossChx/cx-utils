@@ -11,6 +11,8 @@ import {
   shouldNotBeNull,
   shouldNotBeUndefined,
   shouldNotThrow,
+  shouldBeFalse,
+  shouldBeTrue,
   testCases,
   testIfExists,
 } from 'how-the-test-was-won';
@@ -185,9 +187,7 @@ describe('General Utils', () => {
 
         testIfExists(result);
         shouldBeABoolean(result);
-        it('should return true', () => {
-          expect(result).to.equal(true);
-        });
+        shouldBeTrue(result);
       });
 
       describe('when passed a invalid path', () => {
@@ -196,9 +196,7 @@ describe('General Utils', () => {
         shouldBeABoolean(result);
         shouldNotBeNull(result);
         shouldNotBeUndefined(result);
-        it('should return false', () => {
-          expect(result).to.equal(false);
-        });
+        shouldBeFalse(result);
       });
 
       describe('when passed an empty array as path', () => {
@@ -207,9 +205,7 @@ describe('General Utils', () => {
         shouldBeABoolean(result);
         shouldNotBeNull(result);
         shouldNotBeUndefined(result);
-        it('should return true', () => {
-          expect(result).to.equal(true);
-        });
+        shouldBeFalse(result);
       });
     });
   });
@@ -568,6 +564,7 @@ describe('General Utils', () => {
 
   describe('#renameKeys', () => {
     const testObj = { one: 1, two: 2, three: 3 };
+    const expected = { one: 1, two: 2, wigglesaurus: 3 };
     const renameMap = { three: 'wigglesaurus' };
 
     const result = renameKeys(renameMap, testObj);
@@ -581,6 +578,10 @@ describe('General Utils', () => {
 
     it('should remove the mapped key', () => {
       expect(result).to.not.contain.keys(['three']);
+    });
+
+    it('should return the expected result', () => {
+      expect(result).to.deep.equal(expected);
     });
   });
 
