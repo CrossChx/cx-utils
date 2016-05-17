@@ -39,7 +39,7 @@ export const memoAndCurry = compose(memoize, curry);
 
 /**
  * @module constants
- * @description functions that always return the same value
+ * @description Functions that always return the same value
  */
 
 /**
@@ -106,7 +106,7 @@ export const emptyArray = always([]);
 
  /**
   * @module defaults
-  * @description return default values if the arguments passed to them are undefined or null
+  * @description Return default values if the arguments passed to them are undefined or null
   */
 export const defaultToEmptyArray = defaultTo([]);
 export const defaultToEmptyObject = defaultTo({});
@@ -114,10 +114,15 @@ export const defaultToEmptyString = defaultTo('');
 
  /**
   * @module propertyDefaults
-  * @description return either their first argument or the specified default
+  * @description Return either their first argument or the specified default
   */
 export const getPropOrEmptyObjectFunction = propOr(emptyObject);
 export const getPropOrEmptyString = propOr('');
+
+/**
+ * @module argIndex
+ * @description Return only the specified index of argument array
+ */
 
 /**
  * Returns the first argument it is invoked with
@@ -146,6 +151,11 @@ export const firstArgument = nthArg(0);
  * secondArgument(1, 2, 3) //=> 2
  */
 export const secondArgument = nthArg(1);
+
+/**
+ * @module existence
+ * @description Check various conditions around whether values are falsey or truthy
+ */
 
 /**
  * Check whether a value of any type is Empty, Null, or undefined
@@ -202,6 +212,11 @@ export const exists = compose(not, isNil);
 export const hasDeep = pathSatisfies(exists);
 
 /**
+ * @module object
+ * @description Advanced object inspection and property filtering
+ */
+
+/**
  * Return a whitelisted set of keys from nested object path
  *
  * @function
@@ -240,6 +255,50 @@ export const pickDeep = memoize(curry(
     return picker(data);
   })
 );
+
+const mapKeysRaw = (fn, obj) => {
+  const applyFn = compose(fromPairs, map(adjust(fn, 0)), toPairs);
+  return applyFn(obj);
+};
+
+/**
+ * Takes a function (g) and an object and returns an object where each key is
+ * the result of invoking g with that key
+ *
+ * @function
+ * @param  {Function} fn    function applied to each key
+ * @param  {Object}   data  object to map keys from
+ * @return {Object}
+ *
+ * @example
+ * const obj { a: 1, b: 2, c: 3 }
+ *
+ * const upper = key => key.toUpperCase()
+ * const upperCaseKeys = mapKeys(upper)
+ * const upperCaseKeys(obj)
+ * //=> { A: 1, B: 2, C: 3 }
+ */
+export const mapKeys = memoAndCurry(mapKeysRaw);
+
+/**
+ * Creates a new object with the own properties of the provided object, but the
+ * keys renamed according to the keysMap object as `{oldKey: newKey}`.
+ * When some key is not found in the keysMap, then it's passed as-is.
+ *
+ * @sig {a: b} -> {a: *} -> {b: *}
+ */
+export const renameKeys = curry(
+  (keysMap, obj) => reduce((acc, key) => {
+    acc[keysMap[key] || key] = obj[key];
+
+    return acc;
+  }, {}, keys(obj))
+);
+
+/**
+ * @module list
+ * @description Operations on lists of objects
+ */
 
 /**
  * Higher order function to apply a property matching predicate to list
@@ -399,44 +458,10 @@ const mergeListsByPropRaw = (prop, source, search) => {
  */
 export const mergeListsByProp = memoAndCurry(mergeListsByPropRaw);
 
-const mapKeysRaw = (fn, obj) => {
-  const applyFn = compose(fromPairs, map(adjust(fn, 0)), toPairs);
-  return applyFn(obj);
-};
-
 /**
- * Takes a function (g) and an object and returns an object where each key is
- * the result of invoking g with that key
- *
- * @function
- * @param  {Function} fn    function applied to each key
- * @param  {Object}   data  object to map keys from
- * @return {Object}
- *
- * @example
- * const obj { a: 1, b: 2, c: 3 }
- *
- * const upper = key => key.toUpperCase()
- * const upperCaseKeys = mapKeys(upper)
- * const upperCaseKeys(obj)
- * //=> { A: 1, B: 2, C: 3 }
- */
-export const mapKeys = memoAndCurry(mapKeysRaw);
-
-/**
- * Creates a new object with the own properties of the provided object, but the
- * keys renamed according to the keysMap object as `{oldKey: newKey}`.
- * When some key is not found in the keysMap, then it's passed as-is.
- *
- * @sig {a: b} -> {a: *} -> {b: *}
- */
-export const renameKeys = curry(
-  (keysMap, obj) => reduce((acc, key) => {
-    acc[keysMap[key] || key] = obj[key];
-
-    return acc;
-  }, {}, keys(obj))
-);
+  * @module string
+  * @description Helpers for common string manipulation
+  */
 
 const insertCommaEveryThree = replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 const convertToString = ifElse(typeIs('String'), identity, toString);
@@ -445,6 +470,11 @@ export const insertCommasInNumber = compose(
   insertCommaEveryThree,
   convertToString,
 );
+
+/**
+  * @module debugging
+  * @description Helpers for debugging functional js
+  */
 
 /**
  * Simple logger for debugging function composition without breaking data flow
@@ -459,19 +489,33 @@ export const check = val => {
 
 export default {
   check,
+  defaultToEmptyArray,
+  defaultToEmptyObject,
+  defaultToEmptyString,
   dropById,
+  dropByName,
   dropByProp,
   emptyArray,
   emptyObject,
   emptyString,
+  exists,
+  filterById,
+  filterByName,
   filterByProp,
+  findById,
+  findByName,
+  findByProp,
   firstArgument,
   getPropOrEmptyObjectFunction,
   getPropOrEmptyString,
   hasDeep,
   insertCommasInNumber,
   isNilOrEmpty,
+  mapKeys,
+  memoAndCurry,
   mergeListsByProp,
+  pickDeep,
   renameKeys,
   secondArgument,
+  typeIs,
 };
