@@ -1,6 +1,6 @@
 import {
-  always,
   adjust,
+  always,
   anyPass,
   compose,
   curry,
@@ -30,8 +30,10 @@ import {
   reduce,
   reject,
   replace,
+  toLower,
   toPairs,
   toString,
+  trim,
   type,
 } from 'ramda';
 
@@ -463,13 +465,11 @@ export const mergeListsByProp = memoAndCurry(mergeListsByPropRaw);
   * @description Helpers for common string manipulation
   */
 
-const insertCommaEveryThree = replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-const convertToString = ifElse(typeIs('String'), identity, toString);
-
+const processSnakeCaps = replace(/([a-z\d])([A-Z]+)/g, '$1_$2');
+const insertUnderscores = replace(/[-\s]+/g, '_');
 /**
  * Converts text to snake case
  *
- * @todo break this down into curried replaces
  * @function
  * @param   {String} str  string to convert
  * @return  {String}      snkae cased string
@@ -478,18 +478,18 @@ const convertToString = ifElse(typeIs('String'), identity, toString);
  * snakeify('MozTransform')
  * // => 'moz_transform'
  */
-export const snakeify = str => str
-  .trim()
-  .replace(/([a-z\d])([A-Z]+)/g, '$1_$2')
-  .replace(/[-\s]+/g, '_')
-  .toLowerCase();
+export const snakeify = compose(
+  toLower,
+  insertUnderscores,
+  processSnakeCaps,
+  trim,
+);
 
 const capitalize = (match, c) => (c ? c.toUpperCase() : '');
-
+const processCamelCaps = replace(/[-_\s]+(.)?/g, capitalize);
 /**
  * Converts text to camel case
  *
- * @todo break this down into curried replaces
  * @function
  * @param   {String} str  string to convert
  * @return  {String}      camel cased string
@@ -498,10 +498,10 @@ const capitalize = (match, c) => (c ? c.toUpperCase() : '');
  * camelize('moz_transform')
  * // => 'MozTransform'
  */
-export const camelize = str => str
-  .trim()
-  .replace(/[-_\s]+(.)?/g, capitalize);
+export const camelize = compose(processCamelCaps, trim);
 
+const insertCommaEveryThree = replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const convertToString = ifElse(typeIs('String'), identity, toString);
 /**
  * Takes a string or integer and returns a stringified version with comma insertion
  *

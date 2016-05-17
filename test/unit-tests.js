@@ -7,17 +7,19 @@ import {
   shouldBeANumber,
   shouldBeAString,
   shouldBeEmpty,
+  shouldBeFalse,
+  shouldBeTrue,
+  shouldEqual,
   shouldHaveKeys,
   shouldNotBeNull,
   shouldNotBeUndefined,
   shouldNotThrow,
-  shouldBeFalse,
-  shouldBeTrue,
   testCases,
   testIfExists,
 } from 'how-the-test-was-won';
 
 import {
+  camelize,
   dropById,
   dropByProp,
   emptyArray,
@@ -36,6 +38,7 @@ import {
   pickDeep,
   renameKeys,
   secondArgument,
+  snakeify,
 } from '../src/index';
 
 describe('General Utils', () => {
@@ -583,6 +586,22 @@ describe('General Utils', () => {
     it('should return the expected result', () => {
       expect(result).to.deep.equal(expected);
     });
+  });
+
+  describe('#snakeify', () => {
+    const result = snakeify('oneAwesomeNightAtChuckyCheese');
+
+    testIfExists(result);
+    shouldBeAString(result);
+    shouldEqual(result, 'one_awesome_night_at_chucky_cheese');
+  });
+
+  describe('camelize', () => {
+    const result = camelize('one_awesome_night_at_chucky_cheese');
+
+    testIfExists(result);
+    shouldBeAString(result);
+    shouldEqual(result, 'oneAwesomeNightAtChuckyCheese');
   });
 
   describe('#insertCommasInNumber', () => {
