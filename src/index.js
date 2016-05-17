@@ -104,18 +104,18 @@ export const emptyObject = always({});
  */
 export const emptyArray = always([]);
 
- /**
-  * @module defaults
-  * @description Return default values if the arguments passed to them are undefined or null
-  */
+ // /**
+ //  * @module defaults
+ //  * @description Return default values if the arguments passed to them are undefined or null
+ //  */
 export const defaultToEmptyArray = defaultTo([]);
 export const defaultToEmptyObject = defaultTo({});
 export const defaultToEmptyString = defaultTo('');
 
- /**
-  * @module propertyDefaults
-  * @description Return either their first argument or the specified default
-  */
+ // /**
+ //  * @module propertyDefaults
+ //  * @description Return either their first argument or the specified default
+ //  */
 export const getPropOrEmptyObjectFunction = propOr(emptyObject);
 export const getPropOrEmptyString = propOr('');
 
@@ -466,6 +466,18 @@ export const mergeListsByProp = memoAndCurry(mergeListsByPropRaw);
 const insertCommaEveryThree = replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 const convertToString = ifElse(typeIs('String'), identity, toString);
 
+/**
+ * Takes a string or integer and returns a stringified version with comma insertion
+ *
+ * @function
+ * @param  {(String|Number)} val  number to format
+ * @return {String}               formatted string
+ *
+ * @example
+ * insertCommasInNumber('20000') //=> '20,000'
+ * insertCommasInNumber(2000) //=> '2,000'
+ * insertCommasInNumber(200) //=> '200'
+ */
 export const insertCommasInNumber = compose(
   insertCommaEveryThree,
   convertToString,
