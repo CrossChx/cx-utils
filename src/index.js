@@ -484,6 +484,24 @@ export const snakeify = str => str
   .replace(/[-\s]+/g, '_')
   .toLowerCase();
 
+const capitalize = (match, c) => (c ? c.toUpperCase() : '');
+
+/**
+ * Converts text to camel case
+ *
+ * @todo break this down into curried replaces
+ * @function
+ * @param   {String} str  string to convert
+ * @return  {String}      camel cased string
+ *
+ * @example
+ * camelize('moz_transform')
+ * // => 'MozTransform'
+ */
+export const camelize = str => str
+  .trim()
+  .replace(/[-_\s]+(.)?/g, capitalize);
+
 /**
  * Takes a string or integer and returns a stringified version with comma insertion
  *
