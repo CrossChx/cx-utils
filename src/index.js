@@ -467,6 +467,24 @@ const insertCommaEveryThree = replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 const convertToString = ifElse(typeIs('String'), identity, toString);
 
 /**
+ * Converts text to snake case
+ *
+ * @todo break this down into curried replaces
+ * @function
+ * @param   {String} str  string to convert
+ * @return  {String}      snkae cased string
+ *
+ * @example
+ * snakeify('MozTransform')
+ * // => 'moz_transform'
+ */
+export const snakeify = str => str
+  .trim()
+  .replace(/([a-z\d])([A-Z]+)/g, '$1_$2')
+  .replace(/[-\s]+/g, '_')
+  .toLowerCase();
+
+/**
  * Takes a string or integer and returns a stringified version with comma insertion
  *
  * @function
@@ -529,5 +547,6 @@ export default {
   pickDeep,
   renameKeys,
   secondArgument,
+  snakeify,
   typeIs,
 };
