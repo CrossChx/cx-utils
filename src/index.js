@@ -19,7 +19,6 @@ import {
   keys,
   last,
   map,
-  memoize,
   merge,
   not,
   nthArg,
@@ -41,8 +40,6 @@ import {
   type,
   values,
 } from 'ramda';
-
-export const memoAndCurry = compose(memoize, curry);
 
 /**
  * @module constants
@@ -257,7 +254,7 @@ const pickDeepRaw = (pathToProp, pickList, data) => compose(
  * const props = ['name', 'game']
  * pickDeep(path, props, obj) //=> { name: 'mark', game: 'polo' }
  */
-export const pickDeep = memoAndCurry(pickDeepRaw);
+export const pickDeep = curry(pickDeepRaw);
 
 const mapKeysRaw = (fn, obj) => {
   const applyFn = compose(fromPairs, map(adjust(fn, 0)), toPairs);
@@ -281,7 +278,7 @@ const mapKeysRaw = (fn, obj) => {
  * const upperCaseKeys(obj)
  * //=> { A: 1, B: 2, C: 3 }
  */
-export const mapKeys = memoAndCurry(mapKeysRaw);
+export const mapKeys = curry(mapKeysRaw);
 
 const keyContains =
   str => compose(contains(str), secondArgument);
@@ -307,7 +304,7 @@ const allKeysContainingRaw =
  *
  * allKeysContaining('rag', obj) //=> { 'a.b.dragon': true }
  */
-export const allKeysContaining = memoAndCurry(allKeysContainingRaw);
+export const allKeysContaining = curry(allKeysContainingRaw);
 
 const anyPropSatisfiesRaw =
   (predicate, obj) => compose(any(predicate), values)(obj);
@@ -321,7 +318,7 @@ const anyPropSatisfiesRaw =
  * @param {Object}    obj       object to analyze
  * @return {Boolean}            true if any key's value passes the predicate
  */
-export const anyPropSatisfies = memoAndCurry(anyPropSatisfiesRaw);
+export const anyPropSatisfies = curry(anyPropSatisfiesRaw);
 
 /**
  * Creates a new object with the own properties of the provided object, but the
@@ -399,7 +396,7 @@ export const filterByProp = applyByProp(filter);
  * filterById('dragon', friends)
  * //=> [ { name: 'trogdor', id: 'dragon' }, { name: 'booseph', id: 'dragon' } ]
  */
-export const filterById = memoize(filterByProp('id'));
+export const filterById = filterByProp('id');
 
 /**
  * Curried function to filter a list of objects by name property
@@ -419,7 +416,7 @@ export const filterById = memoize(filterByProp('id'));
  * filterByName('trogdor', friends)
  * //=> [ { name: 'trogdor', type: 'dragon' }, { name: 'trogdor', type: 'giant-dragon' } ]
  */
-export const filterByName = memoize(filterByProp('name'));
+export const filterByName = filterByProp('name');
 
 /**
  * Curried function to find the first object in a list where the value of
@@ -445,8 +442,8 @@ export const filterByName = memoize(filterByProp('name'));
 export const findByProp = applyByProp(find);
 
 // lookups for common property names
-export const findById = memoize(findByProp('id'));
-export const findByName = memoize(findByProp('name'));
+export const findById = findByProp('id');
+export const findByName = findByProp('name');
 
 /**
  * Curried function to drop items from a list of objects according to the
@@ -460,8 +457,8 @@ export const findByName = memoize(findByProp('name'));
 export const dropByProp = applyByProp(reject);
 
 // rejectors for common property names
-export const dropById = memoize(dropByProp('id'));
-export const dropByName = memoize(dropByProp('name'));
+export const dropById = dropByProp('id');
+export const dropByName = dropByProp('name');
 
 const mergeListsByPropRaw = (prop, source, search) => {
   const buildPredicate = compose(anyPass, map(propEq(prop)), pluck(prop));
@@ -499,7 +496,7 @@ const mergeListsByPropRaw = (prop, source, search) => {
  * //  { id: 3, likes: 'pasta', firstName: 'Tob', lastName: 'Lob' },
  * //]
  */
-export const mergeListsByProp = memoAndCurry(mergeListsByPropRaw);
+export const mergeListsByProp = curry(mergeListsByPropRaw);
 
 /**
   * @module string
@@ -577,7 +574,6 @@ export const check = val => {
 };
 
 export default {
-  memoAndCurry,
   typeIs,
   emptyString,
   emptyObject,
