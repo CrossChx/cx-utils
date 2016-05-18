@@ -19,6 +19,8 @@ import {
 } from 'how-the-test-was-won';
 
 import {
+  allKeysContaining,
+  anyPropSatisfies,
   camelize,
   dropById,
   dropByProp,
@@ -301,6 +303,63 @@ describe('General Utils', () => {
       shouldBeAnObject(result);
       it('should return an unaltered version of the nested object', () => {
         expect(result).to.deep.equal(testObj.deepObj);
+      });
+    });
+  });
+
+  describe('#allKeysContaining', () => {
+    const obj = {
+      dragon: true,
+      b: true,
+      c: true,
+      d: { super_dragon: true },
+      e: { c: { string_dragon_of_yore: true } },
+      f: { g: { h: { deep_dragon: false } } },
+    };
+
+    const expected = {
+      dragon: true,
+      'd.super_dragon': true,
+      'e.c.string_dragon_of_yore': true,
+      'f.g.h.deep_dragon': false,
+    };
+
+    const result = allKeysContaining('dragon', obj);
+
+    testIfExists(result);
+    shouldBeAnObject(result);
+    shouldHaveKeys(result,
+      'dragon',
+      'd.super_dragon',
+      'e.c.string_dragon_of_yore',
+      'f.g.h.deep_dragon',
+    );
+
+    it('should return the expected result', () => {
+      expect(result).to.deep.equal(expected);
+    });
+  });
+
+  describe('#anyPropSatisfies', () => {
+    describe('when passed a predicate that returns true for any value that is false', () => {
+      const isfalse = x => x === false;
+      const falseCheck = anyPropSatisfies(isfalse);
+
+      testIfExists(falseCheck);
+      shouldBeAFunction(falseCheck);
+
+      describe('when the resulting function is passed a valid object with a passing prop', () => {
+        const obj = { a: true, b: false, c: 'fish', d: 'baseball' };
+        const result = falseCheck(obj);
+
+        shouldBeTrue(result);
+      });
+
+      describe('when the resulting function is passed a valid object with no passing prop', () => {
+        const obj = { a: true, b: true, c: 'fish', d: 'baseball' };
+        const result = falseCheck(obj);
+
+        shouldBeFalse(result);
       });
     });
   });

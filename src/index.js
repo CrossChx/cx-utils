@@ -1,8 +1,11 @@
+import { flatten } from 'flat';
 import {
   adjust,
   always,
+  any,
   anyPass,
   compose,
+  contains,
   curry,
   defaultTo,
   equals,
@@ -24,6 +27,7 @@ import {
   path as rPath,
   pathSatisfies,
   pick,
+  pickBy,
   pluck,
   propEq,
   propOr,
@@ -35,6 +39,7 @@ import {
   toString,
   trim,
   type,
+  values,
 } from 'ramda';
 
 export const memoAndCurry = compose(memoize, curry);
@@ -281,6 +286,46 @@ const mapKeysRaw = (fn, obj) => {
  * //=> { A: 1, B: 2, C: 3 }
  */
 export const mapKeys = memoAndCurry(mapKeysRaw);
+
+const keyContains =
+  str => compose(contains(str), secondArgument);
+const allKeysContainingRaw =
+  (str, obj) => compose(pickBy(keyContains(str)), flatten)(obj);
+
+/**
+ * Takes a string and an object, and returns a flattened copy of the object with
+ * any key in the object that contains the specified string regardless
+ * of the depth each key is located at within the object
+ *
+ * @function
+ * @param  {String} str string to search for in each key
+ * @param  {Object} obj object to search for keys in
+ * @return {Object}     Object with keys that contain the specified string
+ *
+ * @example
+ * const obj = {
+ *   a1: 'something',
+ *   a2: 'something else',
+ *   a3: { b: { dragon: true } }
+ * }
+ * allKeysContaining('rag', obj)
+ * //=> { 'a.b.dragon': true }
+ */
+export const allKeysContaining = memoAndCurry(allKeysContainingRaw);
+
+const anyPropSatisfiesRaw =
+  (predicate, obj) => compose(any(predicate), values)(obj);
+
+/**
+ * Takes a predicate and an object and returns true if the value of any of
+ * the objects properties pass the predicate
+ *
+ * @function
+ * @param {Function}  predicate pass or fail each key's value
+ * @param {Object}    obj       object to analyze
+ * @return {Boolean}            true if any key's value passes the predicate
+ */
+export const anyPropSatisfies = memoAndCurry(anyPropSatisfiesRaw);
 
 /**
  * Creates a new object with the own properties of the provided object, but the
@@ -536,35 +581,38 @@ export const check = val => {
 };
 
 export default {
-  check,
+  memoAndCurry,
+  typeIs,
+  emptyString,
+  emptyObject,
+  emptyArray,
   defaultToEmptyArray,
   defaultToEmptyObject,
   defaultToEmptyString,
-  dropById,
-  dropByName,
-  dropByProp,
-  emptyArray,
-  emptyObject,
-  emptyString,
-  exists,
-  filterById,
-  filterByName,
-  filterByProp,
-  findById,
-  findByName,
-  findByProp,
-  firstArgument,
   getPropOrEmptyObjectFunction,
   getPropOrEmptyString,
-  hasDeep,
-  insertCommasInNumber,
-  isNilOrEmpty,
-  mapKeys,
-  memoAndCurry,
-  mergeListsByProp,
-  pickDeep,
-  renameKeys,
+  firstArgument,
   secondArgument,
+  isNilOrEmpty,
+  exists,
+  hasDeep,
+  pickDeep,
+  mapKeys,
+  allKeysContaining,
+  anyPropSatisfies,
+  renameKeys,
+  filterByProp,
+  filterById,
+  filterByName,
+  findByProp,
+  findById,
+  findByName,
+  dropByProp,
+  dropById,
+  dropByName,
+  mergeListsByProp,
   snakeify,
-  typeIs,
+  camelize,
+  insertCommasInNumber,
+  check,
 };
