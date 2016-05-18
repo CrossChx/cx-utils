@@ -223,6 +223,12 @@ export const hasDeep = pathSatisfies(exists);
  * @description Advanced object inspection and property filtering
  */
 
+const pickDeepRaw = (pathToProp, pickList, data) => compose(
+  objOf(last(pathToProp)),
+  isEmpty(pickList) ? identity : pick(pickList),
+  rPath(pathToProp),
+)(data);
+
 /**
  * Return a whitelisted set of keys from nested object path
  *
@@ -251,17 +257,7 @@ export const hasDeep = pathSatisfies(exists);
  * const props = ['name', 'game']
  * pickDeep(path, props, obj) //=> { name: 'mark', game: 'polo' }
  */
-export const pickDeep = memoize(curry(
-  (pathToProp, pickList, data) => {
-    const picker = compose(
-      objOf(last(pathToProp)),
-      isEmpty(pickList) ? identity : pick(pickList),
-      rPath(pathToProp),
-    );
-
-    return picker(data);
-  })
-);
+export const pickDeep = memoAndCurry(pickDeepRaw);
 
 const mapKeysRaw = (fn, obj) => {
   const applyFn = compose(fromPairs, map(adjust(fn, 0)), toPairs);
@@ -308,8 +304,8 @@ const allKeysContainingRaw =
  *   a2: 'something else',
  *   a3: { b: { dragon: true } }
  * }
- * allKeysContaining('rag', obj)
- * //=> { 'a.b.dragon': true }
+ *
+ * allKeysContaining('rag', obj) //=> { 'a.b.dragon': true }
  */
 export const allKeysContaining = memoAndCurry(allKeysContainingRaw);
 
