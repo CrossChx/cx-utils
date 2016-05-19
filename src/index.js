@@ -571,8 +571,8 @@ const joinParamSets = join('&');
  *
  * @example
  * const tuples = [
- * 	['param1', 'value1'],
- * 	['param2', 'value2'],
+ *   ['param1', 'value1'],
+ *   ['param2', 'value2'],
  * ]
  *
  * buildQueryString(tuples) = //=> 'param1=value1&param2=value'
