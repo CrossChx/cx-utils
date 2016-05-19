@@ -16,6 +16,7 @@ import {
   ifElse,
   isEmpty,
   isNil,
+  join,
   keys,
   last,
   map,
@@ -557,6 +558,26 @@ export const insertCommasInNumber = compose(
   convertToString,
 );
 
+const joinParamPairs = map(join('='));
+const joinParamSets = join('&');
+
+/**
+ * Takes an array of tuples where the first element is a param name and the
+ * second element is a param value, returns a standard url querystring
+ *
+ * @function
+ * @param  {Array[]} tuples pairs of param names and values
+ * @return {String}         standard url querystring
+ *
+ * @example
+ * const tuples = [
+ * 	['param1', 'value1'],
+ * 	['param2', 'value2'],
+ * ]
+ *
+ * buildQueryString(tuples) = //=> 'param1=value1&param2=value'
+ */
+export const buildQueryString = compose(joinParamSets, joinParamPairs);
 /**
   * @module debugging
   * @description Helpers for debugging functional js
@@ -575,6 +596,7 @@ export const check = val => {
 
 export default {
   typeIs,
+  buildQueryString,
   emptyString,
   emptyObject,
   emptyArray,

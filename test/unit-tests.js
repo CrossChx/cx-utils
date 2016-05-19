@@ -21,6 +21,7 @@ import {
 import {
   allKeysContaining,
   anyPropSatisfies,
+  buildQueryString,
   camelize,
   dropById,
   dropByProp,
@@ -720,5 +721,18 @@ describe('General Utils', () => {
       ['when passed the string 2000000', '2000000', '2,000,000'],
       ['when passed the string 2000000000', '2000000000', '2,000,000,000'],
     );
+  });
+
+  describe('#buildQueryString', () => {
+    const result = buildQueryString([
+      ['param1', 'value1'],
+      ['param2', 'value2'],
+    ]);
+
+    const expected = 'param1=value1&param2=value2';
+
+    testIfExists(result);
+    shouldBeAString(result);
+    shouldEqual(expected, result);
   });
 });
