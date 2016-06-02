@@ -34,6 +34,7 @@ import {
   reduce,
   reject,
   replace,
+  tap,
   toLower,
   toPairs,
   toString,
@@ -604,10 +605,7 @@ export const buildQueryString = compose(joinParamSets, joinParamPairs);
  * @param {*}
  * @return {undefined}
  */
-export const check = val => {
-  console.log(val);
-  return val;
-};
+export const check = tap(console.log);
 
 export default {
   typeIs,
