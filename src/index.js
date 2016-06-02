@@ -4,6 +4,7 @@ import {
   always,
   any,
   anyPass,
+  complement,
   compose,
   contains,
   curry,
@@ -21,7 +22,6 @@ import {
   last,
   map,
   merge,
-  not,
   nthArg,
   objOf,
   path as rPath,
@@ -183,6 +183,21 @@ export const secondArgument = nthArg(1);
 export const isNilOrEmpty = anyPass([isNil, isEmpty]);
 
 /**
+ * Checks if value is not empty
+ *
+ * @param  {*}  val   any value
+ * @return {Boolean}  true if the value is anything but an empty object or array
+ *
+ * isNotEmpty(null) //=> false
+ * isNotEmpty(undefined) //=> false
+ *
+ * isNotEmpty('anything else') //=> false
+ * isNotEmpty([]) //=> true
+ * isNotEmpty({}) //=> true
+ */
+export const isNotEmpty = complement(isEmpty);
+
+/**
  * Checks if any value is both
  * - not undefined
  * - not null
@@ -197,7 +212,7 @@ export const isNilOrEmpty = anyPass([isNil, isEmpty]);
  * exists([]) //=> true
  * exists({}) //=> true
  */
-export const exists = compose(not, isNil);
+export const exists = complement(isNil);
 
 /**
  * Check if a key exists at a deep path
