@@ -21,6 +21,7 @@ import {
 import {
   allKeysContaining,
   anyPropSatisfies,
+  appendStr,
   buildQueryString,
   camelize,
   dropById,
@@ -32,6 +33,7 @@ import {
   findById,
   findByProp,
   firstArgument,
+  firstCharIs,
   getPropOrEmptyObjectFunction,
   getPropOrEmptyString,
   hasDeep,
@@ -734,5 +736,43 @@ describe('General Utils', () => {
     testIfExists(result);
     shouldBeAString(result);
     shouldEqual(expected, result);
+  });
+
+  describe('#appendStr', () => {
+    const insultedPerson = 'you';
+    const insult = ' are bad at golf';
+
+    describe(`when invoked with the string '${insult}'`, () => {
+      const insultSomeone = appendStr(insult);
+
+      testIfExists(insultSomeone);
+      shouldBeAFunction(insultSomeone);
+
+      describe(`when the resulting function is passed the name '${insultedPerson}'`, () => {
+        const result = insultSomeone(insultedPerson);
+        const expected = `${insultedPerson}${insult}`;
+
+        testIfExists(result);
+        shouldBeAString(result);
+        shouldEqual(expected, result);
+      });
+    });
+  });
+
+  describe('#firstCharIs', () => {
+    const testChar = 'o';
+
+    describe(`when passed the character ${testChar}`, () => {
+      const charChecker = firstCharIs(testChar);
+
+      testIfExists(charChecker);
+      shouldBeAFunction(charChecker);
+
+      const testStrings = [['once', true], ['twice', false], ['zeeboo', false]];
+      const cases = testStrings.map(
+        ([str, bool]) => [`when passed the string '${str}'`, str, bool]
+      );
+      testCases(charChecker, ...cases);
+    });
   });
 });

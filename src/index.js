@@ -6,13 +6,17 @@ import {
   anyPass,
   complement,
   compose,
+  concat,
   contains,
+  converge,
   curry,
   defaultTo,
   equals,
   filter,
   find,
+  flip,
   fromPairs,
+  head,
   identity,
   ifElse,
   isEmpty,
@@ -520,6 +524,46 @@ export const mergeListsByProp = curry(mergeListsByPropRaw);
   * @description Helpers for common string manipulation
   */
 
+const headOfSecondArg = (char, arr) => head(arr);
+/**
+ * Returns a curried function that checks its first argument matches the first
+ * character of its second argument
+ *
+ * @function
+ * @param  {String}   matchString string to match against
+ * @param  {String}   testString  string to test
+ * @return {Boolean}              true if the first character of testString is
+*                                 equal to the matchString
+*
+* @example
+*
+* const one = 'one'
+* firstCharIs('o', one) //=> true
+* firstCharIs('t', one) //=> false
+*
+* const two = 'two'
+* firstCharIs('t', two) //=> true
+* firstCharIs('o', two) //=> false
+*
+*/
+export const firstCharIs = converge(equals, [identity, headOfSecondArg]);
+
+/**
+ * Produces a new string by adding the first argument to the end of the second
+ *
+ * @function
+ * @param  {String} a   string to add
+ * @param  {String} b   stirng to begin with
+ * @return {String}     concatenated result
+ *
+ * @example
+ * const insultSomeone = appendStr(' are bad at golf')
+ *
+ * insultSomeone('you')
+ * //=> 'you are bad at golf'
+ */
+export const appendStr = flip(concat);
+
 const processSnakeCaps = replace(/([a-z\d])([A-Z]+)/g, '$1_$2');
 const insertUnderscores = replace(/[-\s]+/g, '_');
 /**
@@ -594,6 +638,7 @@ const joinParamSets = join('&');
  * buildQueryString(tuples) = //=> 'param1=value1&param2=value'
  */
 export const buildQueryString = compose(joinParamSets, joinParamPairs);
+
 /**
   * @module debugging
   * @description Helpers for debugging functional js
@@ -606,6 +651,7 @@ export const buildQueryString = compose(joinParamSets, joinParamPairs);
  * @return {undefined}
  */
 export const check = tap(console.log);
+export const prettyCheck = tap(val => console.log(JSON.stringify(val, null, 2)));
 
 export default {
   typeIs,
