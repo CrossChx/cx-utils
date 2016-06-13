@@ -739,8 +739,9 @@ describe('General Utils', () => {
   });
 
   describe('#appendStr', () => {
-    const insultedPerson = 'you';
+    const person = 'you';
     const insult = ' are bad at golf';
+    const expected = `${person}${insult}`;
 
     describe(`when invoked with the string '${insult}'`, () => {
       const insultSomeone = appendStr(insult);
@@ -748,9 +749,8 @@ describe('General Utils', () => {
       testIfExists(insultSomeone);
       shouldBeAFunction(insultSomeone);
 
-      describe(`when the resulting function is passed the name '${insultedPerson}'`, () => {
-        const result = insultSomeone(insultedPerson);
-        const expected = `${insultedPerson}${insult}`;
+      describe(`when the resulting function is passed the name '${person}'`, () => {
+        const result = insultSomeone(person);
 
         testIfExists(result);
         shouldBeAString(result);
@@ -768,11 +768,16 @@ describe('General Utils', () => {
       testIfExists(charChecker);
       shouldBeAFunction(charChecker);
 
-      const testStrings = [['once', true], ['twice', false], ['zeeboo', false]];
-      const cases = testStrings.map(
+      const cases = [
+        ['once', true],
+        ['twice', false],
+        ['zeeboo', false],
+      ];
+
+      const casesWithDesc = cases.map(
         ([str, bool]) => [`when passed the string '${str}'`, str, bool]
       );
-      testCases(charChecker, ...cases);
+      testCases(charChecker, ...casesWithDesc);
     });
   });
 });

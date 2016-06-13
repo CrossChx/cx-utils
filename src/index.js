@@ -647,10 +647,18 @@ export const buildQueryString = compose(joinParamSets, joinParamPairs);
 /**
  * Simple logger for debugging function composition without breaking data flow
  *
- * @param {*}
- * @return {undefined}
+ * @function
+ * @param {*} val  any value
  */
 export const check = tap(console.log);
+
+/**
+ * Logger for debugging function composition without breaking data flow,
+ * pretty-priints objects and arrays
+ *
+ * @function
+ * @param {*} val any value
+ */
 export const prettyCheck = tap(val => console.log(JSON.stringify(val, null, 2)));
 
 export default {
