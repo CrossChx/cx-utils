@@ -16,6 +16,8 @@ import {
   find,
   flip,
   fromPairs,
+  gt,
+  gte,
   head,
   identity,
   ifElse,
@@ -24,6 +26,8 @@ import {
   join,
   keys,
   last,
+  lt,
+  lte,
   map,
   merge,
   nthArg,
@@ -193,12 +197,12 @@ export const isNilOrEmpty = anyPass([isNil, isEmpty]);
  * @param  {*}  val   any value
  * @return {Boolean}  true if the value is anything but an empty object or array
  *
- * isNotEmpty(null) //=> false
- * isNotEmpty(undefined) //=> false
+ * isNotEmpty(null) //=> true
+ * isNotEmpty(undefined) //=> true
  *
- * isNotEmpty('anything else') //=> false
- * isNotEmpty([]) //=> true
- * isNotEmpty({}) //=> true
+ * isNotEmpty('anything else') //=> true
+ * isNotEmpty([]) //=> false
+ * isNotEmpty({}) //=> false
  */
 export const isNotEmpty = complement(isEmpty);
 
@@ -235,6 +239,15 @@ export const exists = complement(isNil);
  * hasDeep(['one', 'two', 'fish'], obj) //=> false
  */
 export const hasDeep = pathSatisfies(exists);
+
+/**
+ * @module number
+ * @description Equality and other predicate checks
+ */
+export const GT = flip(gt);
+export const GTE = flip(gte);
+export const LT = flip(lt);
+export const LTE = flip(gte);
 
 /**
  * @module object
