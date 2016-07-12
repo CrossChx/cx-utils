@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { expect } from 'chai';
 import {
   shouldBeABoolean,
@@ -40,6 +41,7 @@ import {
   insertCommasInNumber,
   isNilOrEmpty,
   mergeListsByProp,
+  parseHexBinary,
   pickDeep,
   renameKeys,
   secondArgument,
@@ -307,6 +309,29 @@ describe('General Utils', () => {
       it('should return an unaltered version of the nested object', () => {
         expect(result).to.deep.equal(testObj.deepObj);
       });
+    });
+  });
+
+  describe('#parseHexBinary', () => {
+    const hexStr =
+    '4812d7e3a9829e5d51bdd64ceb35df060699bc1309731bd6e6f1a544' +
+    '3a7f9ceaf4382fcfd6f5f8a08bb261979c2d49fb771601770f2c26798' +
+    '5af2754e1f8cf09';
+
+    const binArr = [
+      72, 18, -41, -29, -87, -126, -98, 93, 81, -67, -42,
+      76, -21, 53, -33, 6, 6, -103, -68, 19, 9, 115, 27,
+      -42, -26, -15, -91, 68, 58, 127, -100, -22, -12,
+      56, 47, -49, -42, -11, -8, -96, -117, -78, 97,
+      -105, -100, 45, 73, -5, 119, 22, 1, 119, 15,
+      44, 38, 121, -123, -81, 39, 84, -31, -8,
+      -49, 9,
+    ];
+
+    const result = parseHexBinary(hexStr);
+
+    it('should return the expected byte array', () => {
+      expect(result).to.deep.equal(binArr);
     });
   });
 

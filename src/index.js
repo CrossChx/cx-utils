@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import { flatten } from 'flat';
 import {
   adjust,
@@ -27,7 +28,6 @@ import {
   keys,
   last,
   lt,
-  lte,
   map,
   merge,
   nthArg,
@@ -42,6 +42,8 @@ import {
   reduce,
   reject,
   replace,
+  splitEvery,
+  subtract,
   tap,
   toLower,
   toPairs,
@@ -248,6 +250,13 @@ export const GT = flip(gt);
 export const GTE = flip(gte);
 export const LT = flip(lt);
 export const LTE = flip(gte);
+
+const minus = flip(subtract);
+const parseInt16 = flip(parseInt)(16);
+const maybeShift = ifElse(GT(127), minus(256), identity);
+const parseByte = compose(maybeShift, parseInt16);
+
+export const parseHexBinary = compose(map(parseByte), splitEvery(2));
 
 /**
  * @module object
