@@ -2,6 +2,7 @@
 import { flatten } from 'flat';
 import {
   adjust,
+  allPass,
   always,
   any,
   anyPass,
@@ -382,6 +383,24 @@ export const renameKeys = curry(
  * @module list
  * @description Operations on lists of objects
  */
+
+/**
+ * Takes two lists of values, returns true if all the values
+ * in the first array are present in the second array
+ *
+ * @function
+ * @param  {Array} checkArr   list of values to check for
+ * @param  {Array} searchArr  list of values to search in
+ * @return {Boolean}
+ *
+ * @example
+ * const vals = [1, 2, 3]
+ *
+ * const containsVals = containsAll(vals)
+ * containsVals([1, 2, 3, 4, 5]) //=> true
+ * containsVals([1, 2, 4, 5, 6]) // false
+ */
+export const containsAll = compose(allPass, map(contains));
 
 /**
  * Higher order function to apply a property matching predicate to list
