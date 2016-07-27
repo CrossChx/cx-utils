@@ -1,6 +1,7 @@
 /* eslint-disable new-cap */
 import { flatten } from 'flat';
 import {
+  __,
   adjust,
   allPass,
   always,
@@ -28,6 +29,7 @@ import {
   join,
   keys,
   last,
+  lte,
   lt,
   map,
   merge,
@@ -251,6 +253,7 @@ export const GT = flip(gt);
 export const GTE = flip(gte);
 export const LT = flip(lt);
 export const LTE = flip(gte);
+export const between = curry((l, h, x) => allPass([gte(__, l), lte(__, h)])(x));
 
 const minus = flip(subtract);
 const parseInt16 = flip(parseInt)(16);

@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
 import { expect } from 'chai';
+import { property, suchthat } from 'jsverify';
+
 import {
   shouldBeABoolean,
   shouldBeAFunction,
@@ -23,6 +25,7 @@ import {
   allKeysContaining,
   anyPropSatisfies,
   appendStr,
+  between,
   buildQueryString,
   camelize,
   dropById,
@@ -217,6 +220,25 @@ describe('General Utils', () => {
         shouldNotBeUndefined(result);
         shouldBeFalse(result);
       });
+    });
+  });
+
+  describe('#between', () => {
+    const law =
+      ([l, h], x) => (x >= l && x <= h) === between(l, h, x);
+
+    const range = valType =>
+      suchthat(`${valType} & ${valType}`, ([x, y]) => x < y);
+
+    describe('should work with any group of three ', () => {
+      const intRange = range('nat');
+      property('integers', intRange, 'nat', law);
+
+      const floatRange = range('number');
+      property('floating point numbers', floatRange, 'number', law);
+
+      const dateRange = range('datetime');
+      property('datetimes', dateRange, 'datetime', law);
     });
   });
 
