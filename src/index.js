@@ -253,6 +253,25 @@ export const GT = flip(gt);
 export const GTE = flip(gte);
 export const LT = flip(lt);
 export const LTE = flip(gte);
+
+/**
+ * Takes a low number, and a high number, and a test value and returns true if the
+ * test value is between the range established by first and second args
+ *
+ * @function
+ * @param  {Number} low   bottom of range
+ * @param  {Number} high  top of range
+ * @param  {Number} test  checks whether this val is within range
+ * @return {Boolean}
+ *
+ * @example
+ * const 1thru10 = between(1, 10);
+ * const 1thru10(9) //=> true
+ * const 1thru10(10) //=> true
+ * const 1thru10(11) //=> false
+ * const 1thru10(1) //=> true
+ * const 1thru10(0) //=> false
+ */
 export const between = curry((l, h, x) => allPass([gte(__, l), lte(__, h)])(x));
 
 const minus = flip(subtract);
