@@ -56,7 +56,6 @@ import {
   trim,
   type,
   unapply,
-  useWith,
   values,
   zipObj,
 } from 'ramda';
@@ -407,8 +406,6 @@ export const renameKeys = curry(
   }, {}, keys(obj))
 );
 
-const makeLensKey = converge(objOf, [identity, unapply(lensPath)]);
-
 /**
  * Takes a list of string prop names, and returns an object where each key
  * is a lens for its respective prop
@@ -417,7 +414,7 @@ const makeLensKey = converge(objOf, [identity, unapply(lensPath)]);
  * @param  {string[]} propNames list of property names
  * @return {Object}             map of lenses
  */
-export const makeLenses = reduce(useWith(merge, [identity, makeLensKey]), {});
+export const makeLenses = converge(zipObj, [identity, map(unapply(lensPath))]);
 
 /**
  * @module list
