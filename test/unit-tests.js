@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import { expect } from 'chai';
+import { equals, set, view } from 'ramda';
 import { property, suchthat } from 'jsverify';
 
 import {
@@ -43,6 +44,8 @@ import {
   hasDeep,
   insertCommasInNumber,
   isNilOrEmpty,
+  makeLenses,
+  makeRegexs,
   mergeListsByProp,
   parseHexBinary,
   pickDeep,
@@ -825,6 +828,50 @@ describe('General Utils', () => {
         ([str, bool]) => [`when passed the string '${str}'`, str, bool]
       );
       testCases(charChecker, ...casesWithDesc);
+    });
+  });
+
+  describe('#makeLenses', () => {
+    describe('Given an array of strings', () => {
+      const prop = 'a';
+      const L = makeLenses([prop]);
+
+      testIfExists(L);
+      shouldBeAnObject(L);
+      shouldHaveKeys(L, 'a');
+      shouldBeAFunction(L[prop]);
+
+      describe('the resulting map of lenses should', () => {
+        property('work with view', '{ a: string }', obj =>
+          equals(view(L.a, obj), obj.a)
+        );
+
+        property('work with set', '{ a: string }', obj =>
+          equals(set(L.a, 1, obj), { a: 1 })
+        );
+      });
+    });
+  });
+
+  describe('#makeRegexs', () => {
+    const arr = ['a', 'b', 'c'];
+    describe(`given the list of strings [${arr}]`, () => {
+      const p = makeRegexs(arr);
+
+      describe('the resulting function map', () => {
+        shouldBeAnObject(p);
+        arr.forEach(t =>
+          it(`should return true when the ${t} test is used on a string that contains ${t}`, () => {
+            expect(p[t](`one two ${t}`)).to.equal(true);
+          })
+        );
+
+        arr.forEach(t =>
+          it(`should return false when the ${t} test is used on a string that does not contain ${t}`, () => {
+            expect(p[t]('one two')).to.equal(false);
+          })
+        );
+      });
     });
   });
 });

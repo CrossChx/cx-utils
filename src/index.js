@@ -29,8 +29,9 @@ import {
   join,
   keys,
   last,
-  lte,
+  lensPath,
   lt,
+  lte,
   map,
   merge,
   nthArg,
@@ -48,12 +49,16 @@ import {
   splitEvery,
   subtract,
   tap,
+  test,
   toLower,
   toPairs,
   toString,
   trim,
   type,
+  unapply,
+  useWith,
   values,
+  zipObj,
 } from 'ramda';
 
 /**
@@ -348,6 +353,7 @@ export const mapKeys = curry(mapKeysRaw);
 
 const keyContains =
   str => compose(contains(str), secondArgument);
+
 const allKeysContainingRaw =
   (str, obj) => compose(pickBy(keyContains(str)), flatten)(obj);
 
@@ -400,6 +406,18 @@ export const renameKeys = curry(
     return acc;
   }, {}, keys(obj))
 );
+
+const makeLensKey = converge(objOf, [identity, unapply(lensPath)]);
+
+/**
+ * Takes a list of string prop names, and returns an object where each key
+ * is a lens for its respective prop
+ *
+ * @function
+ * @param  {string[]} propNames list of property names
+ * @return {Object}             map of lenses
+ */
+export const makeLenses = reduce(useWith(merge, [identity, makeLensKey]), {});
 
 /**
  * @module list
@@ -586,6 +604,24 @@ export const mergeListsByProp = curry(mergeListsByPropRaw);
   * @module string
   * @description Helpers for common string manipulation
   */
+
+const regex = x => new RegExp(x);
+const mapTests = map(compose(test, regex));
+
+/**
+ * Takes a list of strings, and returns an object where each string is used
+ * as a key to expose a simple regex pattern
+ *
+ * @function
+ * @param {string[]}  tests strings to base simple regex patterns on
+ * @return {Object}
+ *
+ * @example
+ * const patterns = makeRegexs(['a', 'b'])
+ * patterns.b('best') //=> true
+ * patterns.b('rest') //=> false
+ */
+export const makeRegexs = converge(zipObj, [identity, mapTests]);
 
 const headOfSecondArg = (char, arr) => head(arr);
 /**
