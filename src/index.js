@@ -10,6 +10,7 @@ import {
   complement,
   compose,
   concat,
+  cond,
   contains,
   converge,
   curry,
@@ -29,6 +30,7 @@ import {
   join,
   keys,
   last,
+  lensIndex,
   lensPath,
   lt,
   lte,
@@ -48,6 +50,7 @@ import {
   replace,
   splitEvery,
   subtract,
+  T,
   tap,
   test,
   toLower,
@@ -406,6 +409,12 @@ export const renameKeys = curry(
   }, {}, keys(obj))
 );
 
+const makeLens = cond([
+  [typeIs('Number'), lensIndex],
+  [typeIs('String'), unapply(lensPath)],
+  [T, always('invalid')],
+]);
+
 /**
  * Takes a list of string prop names, and returns an object where each key
  * is a lens for its respective prop
@@ -414,7 +423,7 @@ export const renameKeys = curry(
  * @param  {string[]} propNames list of property names
  * @return {Object}             map of lenses
  */
-export const makeLenses = converge(zipObj, [identity, map(unapply(lensPath))]);
+export const makeLenses = converge(zipObj, [identity, map(makeLens)]);
 
 /**
  * @module list

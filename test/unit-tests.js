@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { expect } from 'chai';
-import { equals, set, view } from 'ramda';
+import { equals, set, view, tail } from 'ramda';
 import { property, suchthat } from 'jsverify';
 
 import {
@@ -848,6 +848,26 @@ describe('General Utils', () => {
 
         property('work with set', '{ a: string }', obj =>
           equals(set(L.a, 1, obj), { a: 1 })
+        );
+      });
+    });
+
+    describe('Given an array of numbers', () => {
+      const prop = 0;
+      const L = makeLenses([prop]);
+
+      testIfExists(L);
+      shouldBeAnObject(L);
+      shouldHaveKeys(L, '0');
+      shouldBeAFunction(L[prop]);
+
+      describe('the resulting map of lenses should', () => {
+        property('work with view', '[string]', arr =>
+          equals(view(L[0], arr), arr[0])
+        );
+
+        property('work with set', '[string]', 'nat', (arr, x) =>
+          equals(set(L[0], x, arr), arr.length > 0 ? [x, ...tail(arr)] : [])
         );
       });
     });
