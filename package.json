@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/crosschx/cx-utils/",
+    "url": "https://github.com/crosschx/cx-utils/"
   },
   "scripts": {
     "build-docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
