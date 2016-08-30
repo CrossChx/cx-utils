@@ -1,13 +1,107 @@
-'use strict';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>index.js - Documentation</title>
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.prettyCheck = exports.check = exports.buildQueryString = exports.insertCommasInNumber = exports.camelize = exports.snakeify = exports.appendStr = exports.firstCharIs = exports.makeRegexs = exports.mergeListsByProp = exports.dropByName = exports.dropById = exports.dropByProp = exports.findByName = exports.findById = exports.findByProp = exports.filterByName = exports.filterById = exports.filterByProp = exports.containsAll = exports.makeLenses = exports.renameKeys = exports.anyPropSatisfies = exports.allKeysContaining = exports.mapKeys = exports.pickDeep = exports.parseHexBinary = exports.between = exports.LTE = exports.LT = exports.GTE = exports.GT = exports.hasDeep = exports.exists = exports.isNotEmpty = exports.isNilOrEmpty = exports.secondArgument = exports.firstArgument = exports.getPropOrEmptyString = exports.getPropOrEmptyObjectFunction = exports.defaultToEmptyString = exports.defaultToEmptyObject = exports.defaultToEmptyArray = exports.emptyArray = exports.emptyObject = exports.emptyString = exports.typeIs = undefined;
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
 
-var _flat = require('flat');
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-var _ramda = require('ramda');
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-argIndex.html">argIndex</a><ul class='methods'><li data-type='method'><a href="module-argIndex.html#~firstArgument">firstArgument</a></li><li data-type='method'><a href="module-argIndex.html#~secondArgument">secondArgument</a></li></ul></li><li><a href="module-constants.html">constants</a><ul class='methods'><li data-type='method'><a href="module-constants.html#~emptyArray">emptyArray</a></li><li data-type='method'><a href="module-constants.html#~emptyObject">emptyObject</a></li><li data-type='method'><a href="module-constants.html#~emptyString">emptyString</a></li><li data-type='method'><a href="module-constants.html#~typeIs">typeIs</a></li></ul></li><li><a href="module-debugging.html">debugging</a><ul class='methods'><li data-type='method'><a href="module-debugging.html#~check">check</a></li><li data-type='method'><a href="module-debugging.html#~prettyCheck">prettyCheck</a></li></ul></li><li><a href="module-existence.html">existence</a><ul class='methods'><li data-type='method'><a href="module-existence.html#~hasDeep">hasDeep</a></li><li data-type='method'><a href="module-existence.html#~isNilOrEmpty">isNilOrEmpty</a></li></ul></li><li><a href="module-list.html">list</a><ul class='methods'><li data-type='method'><a href="module-list.html#~applyByProp">applyByProp</a></li><li data-type='method'><a href="module-list.html#~containsAll">containsAll</a></li><li data-type='method'><a href="module-list.html#~dropByProp">dropByProp</a></li><li data-type='method'><a href="module-list.html#~filterById">filterById</a></li><li data-type='method'><a href="module-list.html#~filterByName">filterByName</a></li><li data-type='method'><a href="module-list.html#~filterByProp">filterByProp</a></li><li data-type='method'><a href="module-list.html#~findByProp">findByProp</a></li><li data-type='method'><a href="module-list.html#~mergeListsByProp">mergeListsByProp</a></li></ul></li><li><a href="module-number.html">number</a><ul class='methods'><li data-type='method'><a href="module-number.html#~between">between</a></li></ul></li><li><a href="module-object.html">object</a><ul class='methods'><li data-type='method'><a href="module-object.html#~allKeysContaining">allKeysContaining</a></li><li data-type='method'><a href="module-object.html#~anyPropSatisfies">anyPropSatisfies</a></li><li data-type='method'><a href="module-object.html#~makeLenses">makeLenses</a></li><li data-type='method'><a href="module-object.html#~mapKeys">mapKeys</a></li><li data-type='method'><a href="module-object.html#~pickDeep">pickDeep</a></li></ul></li><li><a href="module-string.html">string</a><ul class='methods'><li data-type='method'><a href="module-string.html#~appendStr">appendStr</a></li><li data-type='method'><a href="module-string.html#~buildQueryString">buildQueryString</a></li><li data-type='method'><a href="module-string.html#~camelize">camelize</a></li><li data-type='method'><a href="module-string.html#~firstCharIs">firstCharIs</a></li><li data-type='method'><a href="module-string.html#~insertCommasInNumber">insertCommasInNumber</a></li><li data-type='method'><a href="module-string.html#~makeRegexs">makeRegexs</a></li><li data-type='method'><a href="module-string.html#~snakeify">snakeify</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable new-cap */
+import { flatten } from 'flat';
+import {
+  __,
+  adjust,
+  allPass,
+  always,
+  any,
+  anyPass,
+  complement,
+  compose,
+  concat,
+  cond,
+  contains,
+  converge,
+  curry,
+  defaultTo,
+  equals,
+  filter,
+  find,
+  flip,
+  fromPairs,
+  gt,
+  gte,
+  head,
+  identity,
+  ifElse,
+  isEmpty,
+  isNil,
+  join,
+  keys,
+  last,
+  lensIndex,
+  lensPath,
+  lt,
+  lte,
+  map,
+  merge,
+  nthArg,
+  objOf,
+  path as rPath,
+  pathSatisfies,
+  pick,
+  pickBy,
+  pluck,
+  propEq,
+  propOr,
+  reduce,
+  reject,
+  replace,
+  splitEvery,
+  subtract,
+  T,
+  tap,
+  test,
+  toLower,
+  toPairs,
+  toString,
+  trim,
+  type,
+  unapply,
+  values,
+  zipObj,
+} from 'ramda';
 
 /**
  * @module constants
@@ -38,10 +132,7 @@ var _ramda = require('ramda');
  * isObject(insistentString) //=> false
  * isObject(obj) //=> true
  */
-/* eslint-disable new-cap */
-var typeIs = exports.typeIs = function typeIs(typeName) {
-  return (0, _ramda.compose)((0, _ramda.equals)(typeName), _ramda.type);
-};
+export const typeIs = typeName => compose(equals(typeName), type);
 
 /**
  * Returns an empty string
@@ -53,7 +144,7 @@ var typeIs = exports.typeIs = function typeIs(typeName) {
  * emptyString('test') //=> ''
  * emptyString(true) //=> ''
  */
-var emptyString = exports.emptyString = (0, _ramda.always)('');
+export const emptyString = always('');
 
 /**
  * Returns an empty object
@@ -65,7 +156,7 @@ var emptyString = exports.emptyString = (0, _ramda.always)('');
  * emptyObject('test') //=> {}
  * emptyObject(true) //=> {}
  */
-var emptyObject = exports.emptyObject = (0, _ramda.always)({});
+export const emptyObject = always({});
 
 /**
  * Returns an empty array
@@ -77,22 +168,22 @@ var emptyObject = exports.emptyObject = (0, _ramda.always)({});
  * emptyArray('test') //=> []
  * emptyArray(true) //=> []
  */
-var emptyArray = exports.emptyArray = (0, _ramda.always)([]);
+export const emptyArray = always([]);
 
-// /**
-//  * @module defaults
-//  * @description Return default values if the arguments passed to them are undefined or null
-//  */
-var defaultToEmptyArray = exports.defaultToEmptyArray = (0, _ramda.defaultTo)([]);
-var defaultToEmptyObject = exports.defaultToEmptyObject = (0, _ramda.defaultTo)({});
-var defaultToEmptyString = exports.defaultToEmptyString = (0, _ramda.defaultTo)('');
+ // /**
+ //  * @module defaults
+ //  * @description Return default values if the arguments passed to them are undefined or null
+ //  */
+export const defaultToEmptyArray = defaultTo([]);
+export const defaultToEmptyObject = defaultTo({});
+export const defaultToEmptyString = defaultTo('');
 
-// /**
-//  * @module propertyDefaults
-//  * @description Return either their first argument or the specified default
-//  */
-var getPropOrEmptyObjectFunction = exports.getPropOrEmptyObjectFunction = (0, _ramda.propOr)(emptyObject);
-var getPropOrEmptyString = exports.getPropOrEmptyString = (0, _ramda.propOr)('');
+ // /**
+ //  * @module propertyDefaults
+ //  * @description Return either their first argument or the specified default
+ //  */
+export const getPropOrEmptyObjectFunction = propOr(emptyObject);
+export const getPropOrEmptyString = propOr('');
 
 /**
  * @module argIndex
@@ -111,7 +202,7 @@ var getPropOrEmptyString = exports.getPropOrEmptyString = (0, _ramda.propOr)('')
  * firstArgument(1, 2) //=> 1
  * firstArgument(1, 2, 3) //=> 1
  */
-var firstArgument = exports.firstArgument = (0, _ramda.nthArg)(0);
+export const firstArgument = nthArg(0);
 
 /**
  * Returns the second argument it is invoked with
@@ -125,7 +216,7 @@ var firstArgument = exports.firstArgument = (0, _ramda.nthArg)(0);
  * secondArgument(1, 2) //=> 2
  * secondArgument(1, 2, 3) //=> 2
  */
-var secondArgument = exports.secondArgument = (0, _ramda.nthArg)(1);
+export const secondArgument = nthArg(1);
 
 /**
  * @module existence
@@ -150,7 +241,7 @@ var secondArgument = exports.secondArgument = (0, _ramda.nthArg)(1);
  * isNilOrEmpty(undefined) //=> true
  * isNilOrEmpty(null) //=> true
  */
-var isNilOrEmpty = exports.isNilOrEmpty = (0, _ramda.anyPass)([_ramda.isNil, _ramda.isEmpty]);
+export const isNilOrEmpty = anyPass([isNil, isEmpty]);
 
 /**
  * Checks if value is not empty
@@ -165,7 +256,7 @@ var isNilOrEmpty = exports.isNilOrEmpty = (0, _ramda.anyPass)([_ramda.isNil, _ra
  * isNotEmpty([]) //=> false
  * isNotEmpty({}) //=> false
  */
-var isNotEmpty = exports.isNotEmpty = (0, _ramda.complement)(_ramda.isEmpty);
+export const isNotEmpty = complement(isEmpty);
 
 /**
  * Checks if any value is both
@@ -182,7 +273,7 @@ var isNotEmpty = exports.isNotEmpty = (0, _ramda.complement)(_ramda.isEmpty);
  * exists([]) //=> true
  * exists({}) //=> true
  */
-var exists = exports.exists = (0, _ramda.complement)(_ramda.isNil);
+export const exists = complement(isNil);
 
 /**
  * Check if a key exists at a deep path
@@ -199,16 +290,16 @@ var exists = exports.exists = (0, _ramda.complement)(_ramda.isNil);
  * hasDeep(['one', 'two', 'three'], obj) //=> true
  * hasDeep(['one', 'two', 'fish'], obj) //=> false
  */
-var hasDeep = exports.hasDeep = (0, _ramda.pathSatisfies)(exists);
+export const hasDeep = pathSatisfies(exists);
 
 /**
  * @module number
  * @description Equality and other predicate checks
  */
-var GT = exports.GT = (0, _ramda.flip)(_ramda.gt);
-var GTE = exports.GTE = (0, _ramda.flip)(_ramda.gte);
-var LT = exports.LT = (0, _ramda.flip)(_ramda.lt);
-var LTE = exports.LTE = (0, _ramda.flip)(_ramda.gte);
+export const GT = flip(gt);
+export const GTE = flip(gte);
+export const LT = flip(lt);
+export const LTE = flip(gte);
 
 /**
  * Takes a low number, and a high number, and a test value and returns true if the
@@ -228,25 +319,25 @@ var LTE = exports.LTE = (0, _ramda.flip)(_ramda.gte);
  * const 1thru10(1) //=> true
  * const 1thru10(0) //=> false
  */
-var between = exports.between = (0, _ramda.curry)(function (l, h, x) {
-  return (0, _ramda.allPass)([(0, _ramda.gte)(_ramda.__, l), (0, _ramda.lte)(_ramda.__, h)])(x);
-});
+export const between = curry((l, h, x) => allPass([gte(__, l), lte(__, h)])(x));
 
-var minus = (0, _ramda.flip)(_ramda.subtract);
-var parseInt16 = (0, _ramda.flip)(parseInt)(16);
-var maybeShift = (0, _ramda.ifElse)(GT(127), minus(256), _ramda.identity);
-var parseByte = (0, _ramda.compose)(maybeShift, parseInt16);
+const minus = flip(subtract);
+const parseInt16 = flip(parseInt)(16);
+const maybeShift = ifElse(GT(127), minus(256), identity);
+const parseByte = compose(maybeShift, parseInt16);
 
-var parseHexBinary = exports.parseHexBinary = (0, _ramda.compose)((0, _ramda.map)(parseByte), (0, _ramda.splitEvery)(2));
+export const parseHexBinary = compose(map(parseByte), splitEvery(2));
 
 /**
  * @module object
  * @description Advanced object inspection and property filtering
  */
 
-var pickDeepRaw = function pickDeepRaw(pathToProp, pickList, data) {
-  return (0, _ramda.compose)((0, _ramda.objOf)((0, _ramda.last)(pathToProp)), (0, _ramda.isEmpty)(pickList) ? _ramda.identity : (0, _ramda.pick)(pickList), (0, _ramda.path)(pathToProp))(data);
-};
+const pickDeepRaw = (pathToProp, pickList, data) => compose(
+  objOf(last(pathToProp)),
+  isEmpty(pickList) ? identity : pick(pickList),
+  rPath(pathToProp),
+)(data);
 
 /**
  * Return a whitelisted set of keys from nested object path
@@ -276,10 +367,10 @@ var pickDeepRaw = function pickDeepRaw(pathToProp, pickList, data) {
  * const props = ['name', 'game']
  * pickDeep(path, props, obj) //=> { name: 'mark', game: 'polo' }
  */
-var pickDeep = exports.pickDeep = (0, _ramda.curry)(pickDeepRaw);
+export const pickDeep = curry(pickDeepRaw);
 
-var mapKeysRaw = function mapKeysRaw(fn, obj) {
-  var applyFn = (0, _ramda.compose)(_ramda.fromPairs, (0, _ramda.map)((0, _ramda.adjust)(fn, 0)), _ramda.toPairs);
+const mapKeysRaw = (fn, obj) => {
+  const applyFn = compose(fromPairs, map(adjust(fn, 0)), toPairs);
   return applyFn(obj);
 };
 
@@ -300,15 +391,13 @@ var mapKeysRaw = function mapKeysRaw(fn, obj) {
  * const upperCaseKeys(obj)
  * //=> { A: 1, B: 2, C: 3 }
  */
-var mapKeys = exports.mapKeys = (0, _ramda.curry)(mapKeysRaw);
+export const mapKeys = curry(mapKeysRaw);
 
-var keyContains = function keyContains(str) {
-  return (0, _ramda.compose)((0, _ramda.contains)(str), secondArgument);
-};
+const keyContains =
+  str => compose(contains(str), secondArgument);
 
-var allKeysContainingRaw = function allKeysContainingRaw(str, obj) {
-  return (0, _ramda.compose)((0, _ramda.pickBy)(keyContains(str)), _flat.flatten)(obj);
-};
+const allKeysContainingRaw =
+  (str, obj) => compose(pickBy(keyContains(str)), flatten)(obj);
 
 /**
  * Takes a string and an object, and returns a flattened copy of the object with
@@ -329,11 +418,10 @@ var allKeysContainingRaw = function allKeysContainingRaw(str, obj) {
  *
  * allKeysContaining('rag', obj) //=> { 'a.b.dragon': true }
  */
-var allKeysContaining = exports.allKeysContaining = (0, _ramda.curry)(allKeysContainingRaw);
+export const allKeysContaining = curry(allKeysContainingRaw);
 
-var anyPropSatisfiesRaw = function anyPropSatisfiesRaw(predicate, obj) {
-  return (0, _ramda.compose)((0, _ramda.any)(predicate), _ramda.values)(obj);
-};
+const anyPropSatisfiesRaw =
+  (predicate, obj) => compose(any(predicate), values)(obj);
 
 /**
  * Takes a predicate and an object and returns true if the value of any of
@@ -344,7 +432,7 @@ var anyPropSatisfiesRaw = function anyPropSatisfiesRaw(predicate, obj) {
  * @param {Object}    obj       object to analyze
  * @return {Boolean}            true if any key's value passes the predicate
  */
-var anyPropSatisfies = exports.anyPropSatisfies = (0, _ramda.curry)(anyPropSatisfiesRaw);
+export const anyPropSatisfies = curry(anyPropSatisfiesRaw);
 
 /**
  * Creates a new object with the own properties of the provided object, but the
@@ -353,15 +441,19 @@ var anyPropSatisfies = exports.anyPropSatisfies = (0, _ramda.curry)(anyPropSatis
  *
  * @sig {a: b} -> {a: *} -> {b: *}
  */
-var renameKeys = exports.renameKeys = (0, _ramda.curry)(function (keysMap, obj) {
-  return (0, _ramda.reduce)(function (acc, key) {
+export const renameKeys = curry(
+  (keysMap, obj) => reduce((acc, key) => {
     acc[keysMap[key] || key] = obj[key];
 
     return acc;
-  }, {}, (0, _ramda.keys)(obj));
-});
+  }, {}, keys(obj))
+);
 
-var makeLens = (0, _ramda.cond)([[typeIs('Number'), _ramda.lensIndex], [typeIs('String'), (0, _ramda.unapply)(_ramda.lensPath)], [_ramda.T, (0, _ramda.always)('invalid')]]);
+const makeLens = cond([
+  [typeIs('Number'), lensIndex],
+  [typeIs('String'), unapply(lensPath)],
+  [T, always('invalid')],
+]);
 
 /**
  * Takes a list of string prop names, and returns an object where each key
@@ -371,7 +463,7 @@ var makeLens = (0, _ramda.cond)([[typeIs('Number'), _ramda.lensIndex], [typeIs('
  * @param  {string[]} propNames list of property names
  * @return {Object}             map of lenses
  */
-var makeLenses = exports.makeLenses = (0, _ramda.converge)(_ramda.zipObj, [_ramda.identity, (0, _ramda.map)(makeLens)]);
+export const makeLenses = converge(zipObj, [identity, map(makeLens)]);
 
 /**
  * @module list
@@ -394,7 +486,7 @@ var makeLenses = exports.makeLenses = (0, _ramda.converge)(_ramda.zipObj, [_ramd
  * containsVals([1, 2, 3, 4, 5]) //=> true
  * containsVals([1, 2, 4, 5, 6]) // false
  */
-var containsAll = exports.containsAll = (0, _ramda.compose)(_ramda.allPass, (0, _ramda.map)(_ramda.contains));
+export const containsAll = compose(allPass, map(contains));
 
 /**
  * Higher order function to apply a property matching predicate to list
@@ -407,9 +499,10 @@ var containsAll = exports.containsAll = (0, _ramda.compose)(_ramda.allPass, (0, 
  * @param  {Object[]} list  list against which to apply function
  * @return {Object[]}       a list derived from original list according to func
  */
-var applyByProp = (0, _ramda.curry)(function (func, key, val, list) {
-  return func((0, _ramda.propEq)(key, val), defaultToEmptyArray(list));
-});
+const applyByProp = curry(
+  (func, key, val, list) =>
+    func(propEq(key, val), defaultToEmptyArray(list)),
+);
 
 /**
  * Curried function to filter a list of objects according to the value of
@@ -431,7 +524,7 @@ var applyByProp = (0, _ramda.curry)(function (func, key, val, list) {
  * filterByProp('type', 'dragon', friends)
  * //=> [ { name: 'trogdor', type: 'dragon' }, { name: 'booseph', type: 'dragon' } ]
  */
-var filterByProp = exports.filterByProp = applyByProp(_ramda.filter);
+export const filterByProp = applyByProp(filter);
 
 /**
  * Curried function to filter a list of objects by id property
@@ -451,7 +544,7 @@ var filterByProp = exports.filterByProp = applyByProp(_ramda.filter);
  * filterById('dragon', friends)
  * //=> [ { name: 'trogdor', id: 'dragon' }, { name: 'booseph', id: 'dragon' } ]
  */
-var filterById = exports.filterById = filterByProp('id');
+export const filterById = filterByProp('id');
 
 /**
  * Curried function to filter a list of objects by name property
@@ -471,7 +564,7 @@ var filterById = exports.filterById = filterByProp('id');
  * filterByName('trogdor', friends)
  * //=> [ { name: 'trogdor', type: 'dragon' }, { name: 'trogdor', type: 'giant-dragon' } ]
  */
-var filterByName = exports.filterByName = filterByProp('name');
+export const filterByName = filterByProp('name');
 
 /**
  * Curried function to find the first object in a list where the value of
@@ -494,11 +587,11 @@ var filterByName = exports.filterByName = filterByProp('name');
  * findByProp('name', 'trogdor', friends)
  * //=> [ { name: 'trogdor', name: 'dragon' } ]
  */
-var findByProp = exports.findByProp = applyByProp(_ramda.find);
+export const findByProp = applyByProp(find);
 
 // lookups for common property names
-var findById = exports.findById = findByProp('id');
-var findByName = exports.findByName = findByProp('name');
+export const findById = findByProp('id');
+export const findByName = findByProp('name');
 
 /**
  * Curried function to drop items from a list of objects according to the
@@ -509,22 +602,20 @@ var findByName = exports.findByName = findByProp('name');
  * @param  {String} val value to match on the specified key
  * @return {Function}
  */
-var dropByProp = exports.dropByProp = applyByProp(_ramda.reject);
+export const dropByProp = applyByProp(reject);
 
 // rejectors for common property names
-var dropById = exports.dropById = dropByProp('id');
-var dropByName = exports.dropByName = dropByProp('name');
+export const dropById = dropByProp('id');
+export const dropByName = dropByProp('name');
 
-var mergeListsByPropRaw = function mergeListsByPropRaw(prop, source, search) {
-  var buildPredicate = (0, _ramda.compose)(_ramda.anyPass, (0, _ramda.map)((0, _ramda.propEq)(prop)), (0, _ramda.pluck)(prop));
-  var predicate = buildPredicate(source);
-  var matches = (0, _ramda.filter)(predicate, search);
-  var mergeWithMatch = function mergeWithMatch(x) {
-    return (0, _ramda.merge)(x, findByProp(prop, x[prop], matches));
-  };
-  var mergeElement = (0, _ramda.ifElse)(predicate, mergeWithMatch, (0, _ramda.always)(undefined));
+const mergeListsByPropRaw = (prop, source, search) => {
+  const buildPredicate = compose(anyPass, map(propEq(prop)), pluck(prop));
+  const predicate = buildPredicate(source);
+  const matches = filter(predicate, search);
+  const mergeWithMatch = x => merge(x, findByProp(prop, x[prop], matches));
+  const mergeElement = ifElse(predicate, mergeWithMatch, always(undefined));
 
-  return (0, _ramda.map)(mergeElement, source);
+  return map(mergeElement, source);
 };
 
 /**
@@ -553,17 +644,15 @@ var mergeListsByPropRaw = function mergeListsByPropRaw(prop, source, search) {
  * //  { id: 3, likes: 'pasta', firstName: 'Tob', lastName: 'Lob' },
  * //]
  */
-var mergeListsByProp = exports.mergeListsByProp = (0, _ramda.curry)(mergeListsByPropRaw);
+export const mergeListsByProp = curry(mergeListsByPropRaw);
 
 /**
   * @module string
   * @description Helpers for common string manipulation
   */
 
-var regex = function regex(x) {
-  return new RegExp(x);
-};
-var mapTests = (0, _ramda.map)((0, _ramda.compose)(_ramda.test, regex));
+const regex = x => new RegExp(x);
+const mapTests = map(compose(test, regex));
 
 /**
  * Takes a list of strings, and returns an object where each string is used
@@ -578,11 +667,9 @@ var mapTests = (0, _ramda.map)((0, _ramda.compose)(_ramda.test, regex));
  * patterns.b('best') //=> true
  * patterns.b('rest') //=> false
  */
-var makeRegexs = exports.makeRegexs = (0, _ramda.converge)(_ramda.zipObj, [_ramda.identity, mapTests]);
+export const makeRegexs = converge(zipObj, [identity, mapTests]);
 
-var headOfSecondArg = function headOfSecondArg(char, arr) {
-  return (0, _ramda.head)(arr);
-};
+const headOfSecondArg = (char, arr) => head(arr);
 /**
  * Returns a curried function that checks its first argument matches the first
  * character of its second argument
@@ -604,7 +691,7 @@ var headOfSecondArg = function headOfSecondArg(char, arr) {
 * firstCharIs('o', two) //=> false
 *
 */
-var firstCharIs = exports.firstCharIs = (0, _ramda.converge)(_ramda.equals, [_ramda.identity, headOfSecondArg]);
+export const firstCharIs = converge(equals, [identity, headOfSecondArg]);
 
 /**
  * Produces a new string by adding the first argument to the end of the second
@@ -620,10 +707,10 @@ var firstCharIs = exports.firstCharIs = (0, _ramda.converge)(_ramda.equals, [_ra
  * insultSomeone('you')
  * //=> 'you are bad at golf'
  */
-var appendStr = exports.appendStr = (0, _ramda.flip)(_ramda.concat);
+export const appendStr = flip(concat);
 
-var processSnakeCaps = (0, _ramda.replace)(/([a-z\d])([A-Z]+)/g, '$1_$2');
-var insertUnderscores = (0, _ramda.replace)(/[-\s]+/g, '_');
+const processSnakeCaps = replace(/([a-z\d])([A-Z]+)/g, '$1_$2');
+const insertUnderscores = replace(/[-\s]+/g, '_');
 /**
  * Converts text to snake case
  *
@@ -635,12 +722,15 @@ var insertUnderscores = (0, _ramda.replace)(/[-\s]+/g, '_');
  * snakeify('MozTransform')
  * // => 'moz_transform'
  */
-var snakeify = exports.snakeify = (0, _ramda.compose)(_ramda.toLower, insertUnderscores, processSnakeCaps, _ramda.trim);
+export const snakeify = compose(
+  toLower,
+  insertUnderscores,
+  processSnakeCaps,
+  trim,
+);
 
-var capitalize = function capitalize(match, c) {
-  return c ? c.toUpperCase() : '';
-};
-var processCamelCaps = (0, _ramda.replace)(/[-_\s]+(.)?/g, capitalize);
+const capitalize = (match, c) => (c ? c.toUpperCase() : '');
+const processCamelCaps = replace(/[-_\s]+(.)?/g, capitalize);
 /**
  * Converts text to camel case
  *
@@ -652,10 +742,10 @@ var processCamelCaps = (0, _ramda.replace)(/[-_\s]+(.)?/g, capitalize);
  * camelize('moz_transform')
  * // => 'MozTransform'
  */
-var camelize = exports.camelize = (0, _ramda.compose)(processCamelCaps, _ramda.trim);
+export const camelize = compose(processCamelCaps, trim);
 
-var insertCommaEveryThree = (0, _ramda.replace)(/\B(?=(\d{3})+(?!\d))/g, ',');
-var convertToString = (0, _ramda.ifElse)(typeIs('String'), _ramda.identity, _ramda.toString);
+const insertCommaEveryThree = replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const convertToString = ifElse(typeIs('String'), identity, toString);
 /**
  * Takes a string or integer and returns a stringified version with comma insertion
  *
@@ -668,10 +758,13 @@ var convertToString = (0, _ramda.ifElse)(typeIs('String'), _ramda.identity, _ram
  * insertCommasInNumber(2000) //=> '2,000'
  * insertCommasInNumber(200) //=> '200'
  */
-var insertCommasInNumber = exports.insertCommasInNumber = (0, _ramda.compose)(insertCommaEveryThree, convertToString);
+export const insertCommasInNumber = compose(
+  insertCommaEveryThree,
+  convertToString,
+);
 
-var joinParamPairs = (0, _ramda.map)((0, _ramda.join)('='));
-var joinParamSets = (0, _ramda.join)('&');
+const joinParamPairs = map(join('='));
+const joinParamSets = join('&amp;');
 
 /**
  * Takes an array of tuples where the first element is a param name and the
@@ -687,9 +780,9 @@ var joinParamSets = (0, _ramda.join)('&');
  *   ['param2', 'value2'],
  * ]
  *
- * buildQueryString(tuples) = //=> 'param1=value1&param2=value'
+ * buildQueryString(tuples) = //=> 'param1=value1&amp;param2=value'
  */
-var buildQueryString = exports.buildQueryString = (0, _ramda.compose)(joinParamSets, joinParamPairs);
+export const buildQueryString = compose(joinParamSets, joinParamPairs);
 
 /**
   * @module debugging
@@ -702,7 +795,7 @@ var buildQueryString = exports.buildQueryString = (0, _ramda.compose)(joinParamS
  * @function
  * @param {*} val  any value
  */
-var check = exports.check = (0, _ramda.tap)(console.log);
+export const check = tap(console.log);
 
 /**
  * Logger for debugging function composition without breaking data flow,
@@ -711,43 +804,60 @@ var check = exports.check = (0, _ramda.tap)(console.log);
  * @function
  * @param {*} val any value
  */
-var prettyCheck = exports.prettyCheck = (0, _ramda.tap)(function (val) {
-  return console.log(JSON.stringify(val, null, 2));
-});
+export const prettyCheck = tap(val => console.log(JSON.stringify(val, null, 2)));
 
-exports.default = {
-  typeIs: typeIs,
-  buildQueryString: buildQueryString,
-  emptyString: emptyString,
-  emptyObject: emptyObject,
-  emptyArray: emptyArray,
-  defaultToEmptyArray: defaultToEmptyArray,
-  defaultToEmptyObject: defaultToEmptyObject,
-  defaultToEmptyString: defaultToEmptyString,
-  getPropOrEmptyObjectFunction: getPropOrEmptyObjectFunction,
-  getPropOrEmptyString: getPropOrEmptyString,
-  firstArgument: firstArgument,
-  secondArgument: secondArgument,
-  isNilOrEmpty: isNilOrEmpty,
-  exists: exists,
-  hasDeep: hasDeep,
-  pickDeep: pickDeep,
-  mapKeys: mapKeys,
-  allKeysContaining: allKeysContaining,
-  anyPropSatisfies: anyPropSatisfies,
-  renameKeys: renameKeys,
-  filterByProp: filterByProp,
-  filterById: filterById,
-  filterByName: filterByName,
-  findByProp: findByProp,
-  findById: findById,
-  findByName: findByName,
-  dropByProp: dropByProp,
-  dropById: dropById,
-  dropByName: dropByName,
-  mergeListsByProp: mergeListsByProp,
-  snakeify: snakeify,
-  camelize: camelize,
-  insertCommasInNumber: insertCommasInNumber,
-  check: check
+export default {
+  typeIs,
+  buildQueryString,
+  emptyString,
+  emptyObject,
+  emptyArray,
+  defaultToEmptyArray,
+  defaultToEmptyObject,
+  defaultToEmptyString,
+  getPropOrEmptyObjectFunction,
+  getPropOrEmptyString,
+  firstArgument,
+  secondArgument,
+  isNilOrEmpty,
+  exists,
+  hasDeep,
+  pickDeep,
+  mapKeys,
+  allKeysContaining,
+  anyPropSatisfies,
+  renameKeys,
+  filterByProp,
+  filterById,
+  filterByName,
+  findByProp,
+  findById,
+  findByName,
+  dropByProp,
+  dropById,
+  dropByName,
+  mergeListsByProp,
+  snakeify,
+  camelize,
+  insertCommasInNumber,
+  check,
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Aug 30 2016 11:20:42 GMT-0400 (EDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

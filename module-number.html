@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>number - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-argIndex.html">argIndex</a><ul class='methods'><li data-type='method'><a href="module-argIndex.html#~firstArgument">firstArgument</a></li><li data-type='method'><a href="module-argIndex.html#~secondArgument">secondArgument</a></li></ul></li><li><a href="module-constants.html">constants</a><ul class='methods'><li data-type='method'><a href="module-constants.html#~emptyArray">emptyArray</a></li><li data-type='method'><a href="module-constants.html#~emptyObject">emptyObject</a></li><li data-type='method'><a href="module-constants.html#~emptyString">emptyString</a></li><li data-type='method'><a href="module-constants.html#~typeIs">typeIs</a></li></ul></li><li><a href="module-debugging.html">debugging</a><ul class='methods'><li data-type='method'><a href="module-debugging.html#~check">check</a></li><li data-type='method'><a href="module-debugging.html#~prettyCheck">prettyCheck</a></li></ul></li><li><a href="module-existence.html">existence</a><ul class='methods'><li data-type='method'><a href="module-existence.html#~hasDeep">hasDeep</a></li><li data-type='method'><a href="module-existence.html#~isNilOrEmpty">isNilOrEmpty</a></li></ul></li><li><a href="module-list.html">list</a><ul class='methods'><li data-type='method'><a href="module-list.html#~applyByProp">applyByProp</a></li><li data-type='method'><a href="module-list.html#~containsAll">containsAll</a></li><li data-type='method'><a href="module-list.html#~dropByProp">dropByProp</a></li><li data-type='method'><a href="module-list.html#~filterById">filterById</a></li><li data-type='method'><a href="module-list.html#~filterByName">filterByName</a></li><li data-type='method'><a href="module-list.html#~filterByProp">filterByProp</a></li><li data-type='method'><a href="module-list.html#~findByProp">findByProp</a></li><li data-type='method'><a href="module-list.html#~mergeListsByProp">mergeListsByProp</a></li></ul></li><li><a href="module-number.html">number</a><ul class='methods'><li data-type='method'><a href="module-number.html#~between">between</a></li></ul></li><li><a href="module-object.html">object</a><ul class='methods'><li data-type='method'><a href="module-object.html#~allKeysContaining">allKeysContaining</a></li><li data-type='method'><a href="module-object.html#~anyPropSatisfies">anyPropSatisfies</a></li><li data-type='method'><a href="module-object.html#~makeLenses">makeLenses</a></li><li data-type='method'><a href="module-object.html#~mapKeys">mapKeys</a></li><li data-type='method'><a href="module-object.html#~pickDeep">pickDeep</a></li></ul></li><li><a href="module-string.html">string</a><ul class='methods'><li data-type='method'><a href="module-string.html#~appendStr">appendStr</a></li><li data-type='method'><a href="module-string.html#~buildQueryString">buildQueryString</a></li><li data-type='method'><a href="module-string.html#~camelize">camelize</a></li><li data-type='method'><a href="module-string.html#~firstCharIs">firstCharIs</a></li><li data-type='method'><a href="module-string.html#~insertCommasInNumber">insertCommasInNumber</a></li><li data-type='method'><a href="module-string.html#~makeRegexs">makeRegexs</a></li><li data-type='method'><a href="module-string.html#~snakeify">snakeify</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">number</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Equality and other predicate checks</p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line218">line 218</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~between"><span class="type-signature">(inner) </span>between<span class="signature">(low, high, test)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Takes a low number, and a high number, and a test value and returns true if the
+test value is between the range established by first and second args</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>low</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>bottom of range</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>high</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>top of range</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>test</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>checks whether this val is within range</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line249">line 249</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const 1thru10 = between(1, 10);
+const 1thru10(9) //=> true
+const 1thru10(10) //=> true
+const 1thru10(11) //=> false
+const 1thru10(1) //=> true
+const 1thru10(0) //=> false</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Aug 30 2016 11:20:42 GMT-0400 (EDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
