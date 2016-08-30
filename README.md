@@ -19,9 +19,9 @@ git clone https://github.com/crosschx/cx-utils
 cd cx-utils
 ```
 
-Now just make amazing improvements in ./src/index.js, please:
+Now just make amazing improvements in `src/index.js`, please:
 
-  - add tests to test/unit-tests.js
+  - add tests to `test/unit-tests.js`
   - add examples and meta info for new functions to doc blocks according to [jsdoc docs](http://usejsdoc.org/)
 
 ## Build and view the docs locally
