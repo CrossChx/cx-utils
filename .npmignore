@@ -1,11 +1,11 @@
-# Source dir
 test
+docs
 
 # Config files
 .babelrc
 .gitignore
+.jsdoc.json
 .jsbeautifyrc
 .eslintignore
 .eslintrc.js
-LICENSE
 webpack.config.js
